@@ -1,20 +1,29 @@
 // express app
-const express = require('express')
+const express = require("express")
 const app = express()
-const mongoose =  require('mongoose')
-const dotenv = require('dotenv')
+const mongoose = require("mongoose")
+const dotenv = require("dotenv")
+const userRouter = require("./routes/user")
 
 // config dotenv
 dotenv.config()
 
 // connecting to mongodb
-mongoose.connect(process.env.MONGO_URL).then(()=>{
-    console.log('DBConnection Successful.')
-}).catch((err)=>{
+const dbURI = process.env.MONGO_URL
+mongoose.set("strictQuery", false)
+mongoose
+  .connect(dbURI)
+  .then(() => {
+    console.log("DBConnection Successful.")
+  })
+  .catch((err) => {
     console.log(err)
-})
+  })
+
+// routes
+app.use("/api/user", userRouter)
 
 // Listening to the requests
-app.listen(process.env.PORT, ()=>{
-    console.log('Backend Server is running...')
+app.listen(process.env.PORT, () => {
+  console.log("Backend Server is running...")
 })
