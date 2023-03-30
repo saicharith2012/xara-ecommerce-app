@@ -20,8 +20,11 @@ mongoose
     console.log(err)
   })
 
+
+  app.use(express.json()) //for reading the request as json.
+
 // routes
-app.use("/api/user", userRouter)
+app.use("/api/users", userRouter)
 
 // Listening to the requests
 app.listen(process.env.PORT, () => {
