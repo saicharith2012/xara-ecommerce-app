@@ -4,6 +4,7 @@ const app = express()
 const mongoose = require("mongoose")
 const dotenv = require("dotenv")
 const userRouter = require("./routes/user")
+const authRouter = require('./routes/auth')
 
 // config dotenv
 dotenv.config()
@@ -24,6 +25,7 @@ mongoose
   app.use(express.json()) //for reading the request as json.
 
 // routes
+app.use('/api/auth', authRouter)
 app.use("/api/users", userRouter)
 
 // Listening to the requests
