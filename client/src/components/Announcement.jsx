@@ -17,7 +17,7 @@ const Announcement = () => {
   return (
     <div>
       <Container>
-        Lightning Deal! Free shipping on orders over Rs.999
+        Lightning Deal! Free shipping on orders over Rs.1999
       </Container>
     </div>
   )
