@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined"
+import { useState } from "react"
+import { sliderItems } from "../data"
 
 const Container = styled.div`
   width: 100%;
@@ -26,11 +28,13 @@ const Arrow = styled.div`
   margin: auto;
   cursor: pointer;
   opacity: 0.5;
+  z-index: 2;
 `
 
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
+  transform: translateX(0vw);
 `
 const Slide = styled.div`
   height: 100vh;
@@ -77,48 +81,35 @@ const Button = styled.button`
 `
 
 const Slider = () => {
+
+  const [slideIndex, setSlideIndex] = useState(0)
+  const handleClick = (direction) => {
+
+  }
+
   return (
     <div>
       <Container>
-        <Arrow direction='left'>
+        <Arrow direction='left' onClick={()=> handleClick("left")}>
           <ArrowBackIosOutlinedIcon />
         </Arrow>
         <Wrapper>
-        {/* SLIDE 1 */}
-          <Slide bg="f7f7ff">
+        {sliderItems.map((item) => (
+
+          <Slide bg={item.bg}>
             <ImgContainer>
-              <Image src='https://res.cloudinary.com/dq0ljafid/image/upload/v1683080824/yxkcmzf5lrtiecq1pwrl.png' />
+              <Image src={item.image} />
             </ImgContainer>
             <InfoContainer>
-              <Title>FLASH SALE</Title>
-              <Desc>SHOP IN STYLE! GET FLAT 30% OFF FOR LATEST ARRIVALS.</Desc>
+              <Title>{item.title}</Title>
+              <Desc>{item.desc}</Desc>
               <Button>SHOP NOW</Button>
             </InfoContainer>
           </Slide>
-        {/* SLIDE 2 */}
-          <Slide bg="fcf1ed">
-            <ImgContainer>
-              <Image src='https://res.cloudinary.com/dq0ljafid/image/upload/v1683080824/yxkcmzf5lrtiecq1pwrl.png' />
-            </ImgContainer>
-            <InfoContainer>
-              <Title>REPUBLIC SALE</Title>
-              <Desc>GET FLAT 40% ON SELECT ITEMS</Desc>
-              <Button>SHOP NOW</Button>
-            </InfoContainer>
-          </Slide>
-        {/* SLIDE 3 */}
-          <Slide bg="fbf0f4">
-            <ImgContainer>
-              <Image src='https://res.cloudinary.com/dq0ljafid/image/upload/v1683080824/yxkcmzf5lrtiecq1pwrl.png' />
-            </ImgContainer>
-            <InfoContainer>
-              <Title>NEW YEAR SALE</Title>
-              <Desc>SHOP IN STYLE! GET FLAT 40% OFF ON SELECT ITEMS</Desc>
-              <Button>SHOP NOW</Button>
-            </InfoContainer>
-          </Slide>
+        
+        ))}
         </Wrapper>
-        <Arrow direction='right'>
+        <Arrow direction='right' onClick={()=> handleClick("right")}>
           <ArrowForwardIosOutlinedIcon />
         </Arrow>
       </Container>
