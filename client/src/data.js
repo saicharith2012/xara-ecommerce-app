@@ -21,3 +21,22 @@ export const sliderItems = [
         bg:"fbf0f4"
     },
 ]
+
+export const categories = [
+    {
+      id: 1,
+      img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683248676/xara-ecommerce-app/mens-black-suit-styles-business-professional-ideas_ymnzhw.jpg",
+      title: "MEN IN STYLE!",
+    },
+    {
+      id: 2,
+      img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683248676/xara-ecommerce-app/d5e34a597407651fe900f9f80d7d6fad_gahknf.jpg",
+      title: "LADY LOVE!",
+    },
+    {
+      id: 3,
+      img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683248676/xara-ecommerce-app/leatherjacketsmain1_g3qggu.jpg",
+      title: "LIGHT JACKETS",
+    },
+  ];
+
