@@ -42,3 +42,55 @@ export const categories = [
     title: "LIGHT JACKETS",
   },
 ]
+
+export const popularProducts = [
+    {
+      id: 1,
+      img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683351711/xara-ecommerce-app/products/4467449812_1_1_1_ng6zwr.jpg",
+    },
+    {
+      id: 2,
+      img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683351711/xara-ecommerce-app/products/3736044403_1_1_1_nnhhqi.jpg",
+    },
+    {
+      id: 3,
+      img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683351710/xara-ecommerce-app/products/4467408400_1_1_1_i7la2j.jpg",
+    },
+    {
+      id: 4,
+      img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683351710/xara-ecommerce-app/products/3046240800_1_1_1_wtqjou.jpg",
+    },
+    {
+      id: 5,
+      img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683351758/xara-ecommerce-app/products/1856083330_6_1_1_v3ieju.jpg",
+    },
+    {
+      id: 6,
+      img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683351711/xara-ecommerce-app/products/3918505711_1_1_1_zp6lh4.jpg",
+    },
+    {
+      id: 7,
+      img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683351710/xara-ecommerce-app/products/2211120070_1_1_1_ixhss6.jpg",
+    },
+    {
+      id: 8,
+      img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683351710/xara-ecommerce-app/products/3920433705_6_1_1_mxbaio.jpg",
+    },
+    {
+      id: 9,
+      img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683351710/xara-ecommerce-app/products/0108042427_1_1_1_zsfxaq.jpg",
+    },
+    {
+      id: 10,
+      img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683351710/xara-ecommerce-app/products/8281886800_2_1_1_wrfqzw.jpg",
+    },
+    {
+      id: 11,
+      img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683351710/xara-ecommerce-app/products/6135110400_6_1_1_g7nett.jpg",
+    },
+    {
+      id: 12,
+      img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683351710/xara-ecommerce-app/products/3046441800_1_1_1_m15rkx.jpg",
+    },
+  ]
+  
