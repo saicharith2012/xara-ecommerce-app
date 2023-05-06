@@ -35,6 +35,8 @@ const Wrapper = styled.div`
   height: 100%;
   display: flex;
   transition: all 0.5s ease;
+  /* slideIndex is taken as prop to the wrapper component.
+   based on which the translation of the slider takes place */
   transform: translateX(${(props) => props.slideIndex * -100}vw);
 `
 const Slide = styled.div`
@@ -82,8 +84,10 @@ const Button = styled.button`
 `
 
 const Slider = () => {
+  // using usestate hook to render the page each time slideIndex gets updated
   const [slideIndex, setSlideIndex] = useState(0)
   const handleClick = (direction) => {
+    // conditional statement for updation of slideIndex based on its current value.
     if (direction === "left") {
       setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2)
     } else {
