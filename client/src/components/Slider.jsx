@@ -35,7 +35,7 @@ const Wrapper = styled.div`
   height: 100%;
   display: flex;
   transition: all 0.5s ease;
-  transform: translateX(${(props)=> props.slideIndex * -100}vw);
+  transform: translateX(${(props) => props.slideIndex * -100}vw);
 `
 const Slide = styled.div`
   height: 100vh;
@@ -43,7 +43,7 @@ const Slide = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #${props=> props.bg};
+  background-color: #${(props) => props.bg};
 `
 
 // image container
@@ -82,12 +82,11 @@ const Button = styled.button`
 `
 
 const Slider = () => {
-
   const [slideIndex, setSlideIndex] = useState(0)
   const handleClick = (direction) => {
-    if(direction === "left"){
+    if (direction === "left") {
       setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2)
-    }else{
+    } else {
       setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0)
     }
   }
@@ -95,26 +94,24 @@ const Slider = () => {
   return (
     <div>
       <Container>
-        <Arrow direction='left' onClick={()=> handleClick("left")}>
+        <Arrow direction='left' onClick={() => handleClick("left")}>
           <ArrowBackIosOutlinedIcon />
         </Arrow>
-        <Wrapper slideIndex= {slideIndex}>
-        {sliderItems.map((item) => (
-
-          <Slide bg={item.bg} key={item.id}>
-            <ImgContainer>
-              <Image src={item.image} />
-            </ImgContainer>
-            <InfoContainer>
-              <Title>{item.title}</Title>
-              <Desc>{item.desc}</Desc>
-              <Button>SHOP NOW</Button>
-            </InfoContainer>
-          </Slide>
-        
-        ))}
+        <Wrapper slideIndex={slideIndex}>
+          {sliderItems.map((item) => (
+            <Slide bg={item.bg} key={item.id}>
+              <ImgContainer>
+                <Image src={item.image} />
+              </ImgContainer>
+              <InfoContainer>
+                <Title>{item.title}</Title>
+                <Desc>{item.desc}</Desc>
+                <Button>SHOP NOW</Button>
+              </InfoContainer>
+            </Slide>
+          ))}
         </Wrapper>
-        <Arrow direction='right' onClick={()=> handleClick("right")}>
+        <Arrow direction='right' onClick={() => handleClick("right")}>
           <ArrowForwardIosOutlinedIcon />
         </Arrow>
       </Container>
