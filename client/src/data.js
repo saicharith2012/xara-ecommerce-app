@@ -10,7 +10,7 @@ export const sliderItems = [
   {
     id: 2,
     image:
-      "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683348420/xara-ecommerce-app/_removal.ai__9b229430-f1af-49cc-9fce-97967db1fe81_XZ697J2-removebg-preview_flpjb6.png",
+      "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683348738/xara-ecommerce-app/slider%20images/_removal.ai__9b229430-f1af-49cc-9fce-97967db1fe81_XZ697J2-removebg-preview_flpjb6.png",
     title: "REPUBLIC SALE",
     desc: "GET FLAT 40% ON SELECT ITEMS",
     bg: "fcf1ed",
@@ -18,7 +18,7 @@ export const sliderItems = [
   {
     id: 3,
     image:
-      "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683348416/xara-ecommerce-app/_removal.ai__9b9211f0-00ac-42b1-bc4f-f00e0d9ba277_GACOQS-removebg-preview_abxzcj.png",
+      "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683348416/xara-ecommerce-app/slider%20images/_removal.ai__9b9211f0-00ac-42b1-bc4f-f00e0d9ba277_GACOQS-removebg-preview_abxzcj.png",
     title: "NEW YEAR SALE",
     desc: "SHOP IN STYLE! GET FLAT 40% OFF ON SELECT ITEMS",
     bg: "fbf0f4",
@@ -38,7 +38,7 @@ export const categories = [
   },
   {
     id: 3,
-    img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683248676/xara-ecommerce-app/leatherjacketsmain1_g3qggu.jpg",
+    img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683248676/xara-ecommerce-app/categories/leatherjacketsmain1_g3qggu.jpg",
     title: "LIGHT JACKETS",
   },
 ]
@@ -91,6 +91,18 @@ export const popularProducts = [
     {
       id: 12,
       img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683351710/xara-ecommerce-app/products/3046441800_1_1_1_m15rkx.jpg",
+    },
+    {
+      id: 13,
+      img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683351710/xara-ecommerce-app/products/2761240800_1_1_1_zuqoek.jpg",
+    },
+    {
+      id: 14,
+      img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683351710/xara-ecommerce-app/products/4341826822_1_1_1_tno2iy.jpg",
+    },
+    {
+      id: 15,
+      img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683351711/xara-ecommerce-app/products/4025227712_1_1_1_hg4v7m.jpg",
     },
   ]
   

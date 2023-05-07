@@ -7,7 +7,7 @@ padding: 20px;
 display: flex;
 flex-wrap: wrap;
 justify-content: space-between;
-background-color:floralwhite;
+background-color: #f7f7ff;
 `
 
 const Products = () => {
