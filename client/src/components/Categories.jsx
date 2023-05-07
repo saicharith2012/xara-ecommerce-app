@@ -3,9 +3,11 @@ import { categories } from "../data"
 import CategoryItem from "./CategoryItem"
 
 
+
 const Container = styled.div`
 display: flex;
 padding: 20px;
+margin: 0px 20px ;
 background-color: floralwhite;
 `
 
