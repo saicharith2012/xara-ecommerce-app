@@ -28,12 +28,12 @@ export const sliderItems = [
 export const categories = [
   {
     id: 1,
-    img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683248676/xara-ecommerce-app/mens-black-suit-styles-business-professional-ideas_ymnzhw.jpg",
+    img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683248676/xara-ecommerce-app/categories/mens-black-suit-styles-business-professional-ideas_ymnzhw.jpg",
     title: "MEN IN STYLE!",
   },
   {
     id: 2,
-    img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683248676/xara-ecommerce-app/d5e34a597407651fe900f9f80d7d6fad_gahknf.jpg",
+    img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683248676/xara-ecommerce-app/categories/d5e34a597407651fe900f9f80d7d6fad_gahknf.jpg",
     title: "LADY LOVE!",
   },
   {
