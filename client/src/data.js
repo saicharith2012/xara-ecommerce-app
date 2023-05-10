@@ -11,7 +11,7 @@ export const sliderItems = [
     id: 2,
     image:
       "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683348738/xara-ecommerce-app/slider%20images/_removal.ai__9b229430-f1af-49cc-9fce-97967db1fe81_XZ697J2-removebg-preview_flpjb6.png",
-    title: "REPUBLIC SALE",
+    title: "WOMEN'S COLLECTION",
     desc: "GET FLAT 40% ON SELECT ITEMS",
     bg: "fcf1ed",
   },
@@ -19,7 +19,7 @@ export const sliderItems = [
     id: 3,
     image:
       "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683348416/xara-ecommerce-app/slider%20images/_removal.ai__9b9211f0-00ac-42b1-bc4f-f00e0d9ba277_GACOQS-removebg-preview_abxzcj.png",
-    title: "NEW YEAR SALE",
+    title: "VINTAGE VIBE",
     desc: "SHOP IN STYLE! GET FLAT 40% OFF ON SELECT ITEMS",
     bg: "fbf0f4",
   },
