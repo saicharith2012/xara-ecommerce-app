@@ -23,7 +23,7 @@ margin-bottom: 25px;
 `
 
 const InputContainer = styled.div`
-width: 40%;
+width: 35%;
 height: 40px;
 background-color: white;
 display: flex;
@@ -32,7 +32,7 @@ border: 1px solid lightgray;
 `
 const Input = styled.input`
 border: none;
-flex:8;
+flex:9;
 padding-left: 20px;
 `
 
