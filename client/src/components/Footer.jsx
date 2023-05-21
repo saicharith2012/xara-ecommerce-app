@@ -1,8 +1,8 @@
 import styled from "styled-components"
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import PinterestIcon from '@mui/icons-material/Pinterest';
+import FacebookIcon from "@mui/icons-material/Facebook"
+import InstagramIcon from "@mui/icons-material/Instagram"
+import TwitterIcon from "@mui/icons-material/Twitter"
+import PinterestIcon from "@mui/icons-material/Pinterest"
 
 const Container = styled.div`
   display: flex;
@@ -14,9 +14,26 @@ const Left = styled.div`
   padding: 20px;
 `
 const Logo = styled.h1``
-const Desc = styled.p``
-const SocialContainer = styled.div``
-const SocialIcon = styled.div``
+
+const Desc = styled.p`
+  margin: 20px 0px;
+`
+
+const SocialContainer = styled.div`
+  display: flex;
+`
+
+const SocialIcon = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: white;
+  background-color: #${(props) => props.color};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+`
 
 const Center = styled.div`
   flex: 1;
@@ -31,23 +48,23 @@ const Footer = () => {
       <Left>
         <Logo>XARA.</Logo>
         <Desc>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti
-          sequi, porro optio perspiciatis impedit esse nisi eaque recusandae
-          perferendis ex dolore ab excepturi sed? ligendi cumque magni tenetur
-          veritatis commodi.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia
+          architecto eum debitis dolor sit cumque, modi cupiditate inventore
+          quidem veniam facilis eius nisi accusamus, qui similique, nobis
+          laborum molestias enim.
         </Desc>
         <SocialContainer>
-          <SocialIcon>
-            <FacebookIcon/>
+          <SocialIcon color='3B5999'>
+            <FacebookIcon />
           </SocialIcon>
-          <SocialIcon>
-            <InstagramIcon/>
+          <SocialIcon color='E4405F'>
+            <InstagramIcon />
           </SocialIcon>
-          <SocialIcon>
-            <TwitterIcon/>
+          <SocialIcon color='55ACEE'>
+            <TwitterIcon />
           </SocialIcon>
-          <SocialIcon>
-            <PinterestIcon/>
+          <SocialIcon color='E60023'>
+            <PinterestIcon />
           </SocialIcon>
         </SocialContainer>
       </Left>
