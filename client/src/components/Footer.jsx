@@ -6,6 +6,7 @@ import PinterestIcon from "@mui/icons-material/Pinterest"
 
 const Container = styled.div`
   display: flex;
+  /* height: 25vh; */
 `
 const Left = styled.div`
   flex: 1;
@@ -37,9 +38,30 @@ const SocialIcon = styled.div`
 
 const Center = styled.div`
   flex: 1;
+  padding: 20px;
+  `
+
+const Title = styled.h3`
+margin-bottom: 30px;
 `
+
+const List = styled.ul`
+margin: 0;
+padding: 0;
+list-style: none;
+display: flex;
+flex-wrap: wrap;
+`
+
+const ListItem = styled.li`
+width: 50%;
+margin-bottom: 8px;
+`
+
+
 const Right = styled.div`
   flex: 1;
+  padding: 20px;
 `
 
 const Footer = () => {
@@ -68,7 +90,20 @@ const Footer = () => {
           </SocialIcon>
         </SocialContainer>
       </Left>
-      <Center></Center>
+      <Center>
+        <Title>Useful Links</Title>
+        <List>
+          <ListItem>Home</ListItem>
+          <ListItem>Cart</ListItem>
+          <ListItem>Men's Fashion</ListItem>
+          <ListItem>Women's fashion</ListItem>
+          <ListItem>Accessories</ListItem>
+          <ListItem>My Account</ListItem>
+          <ListItem>Order Tracking</ListItem>
+          <ListItem>Wishlist</ListItem>
+          <ListItem>Terms</ListItem>
+        </List>
+      </Center>
       <Right></Right>
     </Container>
   )
