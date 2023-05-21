@@ -3,6 +3,9 @@ import FacebookIcon from "@mui/icons-material/Facebook"
 import InstagramIcon from "@mui/icons-material/Instagram"
 import TwitterIcon from "@mui/icons-material/Twitter"
 import PinterestIcon from "@mui/icons-material/Pinterest"
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 
 const Container = styled.div`
   display: flex;
@@ -64,6 +67,15 @@ const Right = styled.div`
   padding: 20px;
 `
 
+const ContactItem = styled.div`
+margin-bottom: 20px;
+display: flex;
+align-items: center;
+`
+
+const Payment = styled.div`
+`
+
 const Footer = () => {
   return (
     <Container>
@@ -104,7 +116,19 @@ const Footer = () => {
           <ListItem>Terms</ListItem>
         </List>
       </Center>
-      <Right></Right>
+      <Right>
+      <Title>Contact</Title>
+      <ContactItem><LocationOnOutlinedIcon style={{marginRight:"10px"}}/> 221B Baker Street, London NW1 6XE.</ContactItem>
+      <ContactItem><LocalPhoneOutlinedIcon style={{marginRight:"10px"}}/> +44 897 645 3210 </ContactItem>
+      <ContactItem><EmailOutlinedIcon style={{marginRight:"10px"}}/> apparel@xara.com</ContactItem>
+      
+      <Payment>
+        <img src="https://assets.nflxext.com/siteui/acquisition/payment/ffe/paymentpicker/VISA.png" alt="Visa" />
+        <img src="https://assets.nflxext.com/siteui/acquisition/payment/ffe/paymentpicker/MASTERCARD.png" alt="Mastercard" />
+        <img src="https://assets.nflxext.com/siteui/acquisition/payment/ffe/paymentpicker/AMEX.png" alt="American Express" />
+        <img src="https://assets.nflxext.com/siteui/acquisition/payment/ffe/paymentpicker/DINERS.png" alt="Diners Club" />
+      </Payment>
+      </Right>
     </Container>
   )
 }
