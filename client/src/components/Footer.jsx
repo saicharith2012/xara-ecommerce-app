@@ -120,7 +120,7 @@ const Footer = () => {
       <Title>Contact</Title>
       <ContactItem><LocationOnOutlinedIcon style={{marginRight:"10px"}}/> 221B Baker Street, London NW1 6XE.</ContactItem>
       <ContactItem><LocalPhoneOutlinedIcon style={{marginRight:"10px"}}/> +44 897 645 3210 </ContactItem>
-      <ContactItem><EmailOutlinedIcon style={{marginRight:"10px"}}/> apparel@xara.com</ContactItem>
+      <ContactItem><EmailOutlinedIcon style={{marginRight:"10px"}}/> apparel@madebycharith.com</ContactItem>
       
       <Payment>
         <img src="https://assets.nflxext.com/siteui/acquisition/payment/ffe/paymentpicker/VISA.png" alt="Visa" />
