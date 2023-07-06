@@ -7,31 +7,30 @@ import RemoveIcon from "@mui/icons-material/Remove"
 import AddIcon from "@mui/icons-material/Add"
 import { mobile } from "../responsive"
 
-
 const Container = styled.div``
 
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
-  ${mobile({flexDirection:"column", padding:"25px 15px"})}
+  ${mobile({ flexDirection: "column", padding: "25px 15px" })}
 `
 
 const ImgContainer = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
-  ${mobile({marginBottom: "30px"})}
+  ${mobile({ marginBottom: "30px" })}
 `
 
 const Image = styled.img`
   width: 50%;
-  ${mobile({width:"100%"})}
+  ${mobile({ width: "70%" })}
 `
 
 const InfoContainer = styled.div`
   flex: 1;
   padding: 0px 50px;
-  ${mobile({padding: "0px 10px"})}
+  ${mobile({ padding: "0px 10px" })}
 `
 
 const Title = styled.h1`
@@ -58,16 +57,14 @@ const FilterContainer = styled.div`
 const Filter = styled.div`
   display: flex;
   align-items: center;
-  ${mobile({marginRight:"15px"
-})}
-
+  ${mobile({ marginRight: "15px" })}
 `
 
 const FilterTitle = styled.span`
   font-size: 20px;
   font-weight: 200;
   margin-right: 5px;
-  ${mobile({fontSize:"16px"})}
+  ${mobile({ fontSize: "16px" })}
 `
 
 const FilterColor = styled.div`
@@ -78,7 +75,7 @@ const FilterColor = styled.div`
   background-color: ${(props) => props.color};
   margin: 0px 5px;
   cursor: pointer;
-  ${mobile({width:"15px", height:"15px", margin:"0px 3px"})}
+  ${mobile({ width: "15px", height: "15px", margin: "0px 3px" })}
 `
 
 const FilterSize = styled.select`
@@ -93,7 +90,7 @@ const AddContainer = styled.div`
   align-items: center;
   width: 35%;
   justify-content: space-between;
-  ${mobile({width:"80%"})}
+  ${mobile({ width: "80%" })}
 `
 
 const AmountContainer = styled.div`
@@ -109,23 +106,20 @@ const Amount = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0px 5px
-
+  margin: 0px 5px;
 `
 
 const Button = styled.button`
-padding: 15px;
-border: 2px solid black;
-background-color: white;
-cursor:pointer;
-font-weight: 500;
+  padding: 15px;
+  border: 2px solid black;
+  background-color: white;
+  cursor: pointer;
+  font-weight: 500;
 
-&:hover{
-  background-color: #f8f4f4;
-}
+  &:hover {
+    background-color: #f8f4f4;
+  }
 `
-
-
 
 const Product = () => {
   return (
