@@ -22,7 +22,9 @@ const Top = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 20px;
-  ${mobile({flexDirection:"column"})}
+  ${mobile({  padding: "20px 10px"
+})}
+
 `
 
 const TopButton = styled.button`
@@ -34,9 +36,11 @@ const TopButton = styled.button`
   background-color: ${(props) =>
     props.type === "filled" ? "black" : "transparent"}; //if-else
   color: ${(props) => props.type === "filled" && "white"};
-  ${mobile({margin:"15px"})}
+  ${mobile({margin:"0px 0px 0px 0px"})}
 `
-const TopTexts = styled.div``
+const TopTexts = styled.div`
+  ${mobile({display:"none"})}
+`
 
 const TopText = styled.span`
   text-decoration: underline;
@@ -48,16 +52,18 @@ const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 20px;
+  ${mobile({flexDirection:"column", padding:"0px"})}
 `
 
 const Info = styled.div`
   flex: 3;
-`
+  `
 
 const Product = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 5px 0px;
+  ${mobile({display:"flex",flexDirection:"column"})}
 `
 
 const ProductDetail = styled.div`
@@ -93,22 +99,27 @@ const PriceDetail = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`
+  
+  `
 
 const ProductAmountContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
-`
+  margin: 5px 0px 10px 0px;
+  `
 
 const ProductAmount = styled.div`
   font-size: 20px;
   margin: 5px;
   border: 1px solid black;
+  border-radius: 10px;
   padding: 0px 5px;
+  ${mobile({margin:"10px",padding:"4px 10px"})}
 `
 const ProductPrice = styled.div`
   font-size: 25px;
+  ${mobile({marginBottom:"5px"})}
+
 `
 
 const Hr = styled.hr`
@@ -125,6 +136,8 @@ const Summary = styled.div`
   border-radius: 10px;
   padding: 20px;
   height: fit-content;
+  ${mobile({marginTop:"20px"})}
+
 `
 
 const SummaryTitle = styled.h1`
@@ -245,6 +258,7 @@ const Cart = () => {
                 <ProductPrice>Rs. 1100</ProductPrice>
               </PriceDetail>
             </Product>
+            <Hr />
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
