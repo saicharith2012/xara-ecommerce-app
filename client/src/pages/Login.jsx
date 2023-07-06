@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { mobile } from "../responsive"
 
 const Container = styled.div`
   width: 100vw;
@@ -6,9 +7,9 @@ const Container = styled.div`
   background: url(https://res.cloudinary.com/dgiksl9k7/image/upload/v1688364921/xara-ecommerce-app/2102928-removebg_dkgids.png)
     right;
   background-repeat: no-repeat;
-
   display: flex;
   align-items: center;
+  ${mobile({justifyContent: "center", backgroundSize:"cover", backgroundPosition:"center"})}
 `
 
 const Wrapper = styled.div`
@@ -17,7 +18,7 @@ const Wrapper = styled.div`
   background-color: white;
   margin-left: 8%;
   border-radius: 10px;
-  
+  ${mobile({width:"70%", margin:"0px",})}
   `
 
 const Title = styled.h1`
