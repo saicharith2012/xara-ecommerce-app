@@ -35,7 +35,7 @@ const Container = styled.div`
   &:hover ${Info} {
     opacity: 1;
   }
-  ${mobile({minWidth:"40%",overflow:"hidden", height: "100%"})}
+  ${mobile({minWidth:"40%",overflow:"hidden", height: "100%", maxWidth: "47%"})}
 
   `
 
@@ -64,7 +64,7 @@ const Icon = styled.div`
     background-color: #e9f5f5;
     transform: scale(1.1);
   }
-  ${mobile({width: "30px", height:"30px"})}
+  ${mobile({width: "25px", height:"25px", padding:"4px"})}
 
   `
 
