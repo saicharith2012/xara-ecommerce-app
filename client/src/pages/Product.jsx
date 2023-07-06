@@ -13,7 +13,7 @@ const Container = styled.div``
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
-  ${mobile({flexDirection:"column", padding:"50px 25px"})}
+  ${mobile({flexDirection:"column", padding:"25px 15px"})}
 `
 
 const ImgContainer = styled.div`
@@ -25,13 +25,13 @@ const ImgContainer = styled.div`
 
 const Image = styled.img`
   width: 50%;
-  ${mobile({width:"80%"})}
+  ${mobile({width:"100%"})}
 `
 
 const InfoContainer = styled.div`
   flex: 1;
   padding: 0px 50px;
-  ${mobile({padding: "0px"})}
+  ${mobile({padding: "0px 10px"})}
 `
 
 const Title = styled.h1`
