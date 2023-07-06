@@ -4,23 +4,25 @@ import Footer from "../components/Footer"
 import styled from "styled-components"
 import RemoveIcon from "@mui/icons-material/Remove"
 import AddIcon from "@mui/icons-material/Add"
+import { mobile } from "../responsive"
 
 const Container = styled.div``
 
 const Wrapper = styled.div`
   padding: 20px;
-`
+  `
 
 const Title = styled.h1`
   font-weight: 300;
   text-align: center;
-`
+  `
 
 const Top = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px;
+  ${mobile({flexDirection:"column"})}
 `
 
 const TopButton = styled.button`
@@ -32,6 +34,7 @@ const TopButton = styled.button`
   background-color: ${(props) =>
     props.type === "filled" ? "black" : "transparent"}; //if-else
   color: ${(props) => props.type === "filled" && "white"};
+  ${mobile({margin:"15px"})}
 `
 const TopTexts = styled.div``
 
