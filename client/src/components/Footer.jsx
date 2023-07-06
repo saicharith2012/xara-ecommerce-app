@@ -6,10 +6,13 @@ import PinterestIcon from "@mui/icons-material/Pinterest"
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import { mobile } from "../responsive"
+
 
 const Container = styled.div`
   display: flex;
   /* height: 25vh; */
+  ${mobile({flexDirection:"column"})}
 `
 const Left = styled.div`
   flex: 1;
