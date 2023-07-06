@@ -5,27 +5,33 @@ import Newsletter from "../components/Newsletter"
 import Footer from "../components/Footer"
 import RemoveIcon from "@mui/icons-material/Remove"
 import AddIcon from "@mui/icons-material/Add"
+import { mobile } from "../responsive"
+
 
 const Container = styled.div``
 
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
+  ${mobile({flexDirection:"column", padding:"50px 25px"})}
 `
 
 const ImgContainer = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
+  ${mobile({marginBottom: "30px"})}
 `
 
 const Image = styled.img`
   width: 50%;
+  ${mobile({width:"80%"})}
 `
 
 const InfoContainer = styled.div`
   flex: 1;
   padding: 0px 50px;
+  ${mobile({padding: "0px"})}
 `
 
 const Title = styled.h1`
@@ -46,17 +52,22 @@ const FilterContainer = styled.div`
   margin: 30px 0px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `
 
 const Filter = styled.div`
   display: flex;
-  align-content: center;
+  align-items: center;
+  ${mobile({marginRight:"15px"
+})}
+
 `
 
 const FilterTitle = styled.span`
   font-size: 20px;
   font-weight: 200;
   margin-right: 5px;
+  ${mobile({fontSize:"16px"})}
 `
 
 const FilterColor = styled.div`
@@ -67,6 +78,7 @@ const FilterColor = styled.div`
   background-color: ${(props) => props.color};
   margin: 0px 5px;
   cursor: pointer;
+  ${mobile({width:"15px", height:"15px", margin:"0px 3px"})}
 `
 
 const FilterSize = styled.select`
@@ -81,6 +93,7 @@ const AddContainer = styled.div`
   align-items: center;
   width: 35%;
   justify-content: space-between;
+  ${mobile({width:"80%"})}
 `
 
 const AmountContainer = styled.div`
