@@ -16,25 +16,25 @@ const Title = styled.h1`
 const FilterContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  ${mobile({flexDirection:"column"})}
-`
-
-const Filter = styled.div`
+  `
+  
+  const Filter = styled.div`
   margin: 20px;
   display: flex;
   align-items: center;
-  ${mobile({margin:"10px 20px"})}
-`
-
-const FilterText = styled.p`
+  ${mobile({margin:"10px 20px",display:"flex",flexDirection:"column", alignItems:"flex-start"})}
+  `
+  
+  const FilterText = styled.p`
   font-size: 16px;
   font-weight: 400;
   margin-right: 15px;
-`
-
-const Select = styled.select`
+  `
+  
+  const Select = styled.select`
   margin-right: 10px;
   padding: 10px;
+  ${mobile({margin:"5px 0px 0px 0px"})}
 `
 
 const Option = styled.option`
