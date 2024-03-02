@@ -11,7 +11,7 @@ import { mobile } from "../responsive"
 
 const Container = styled.div`
   display: flex;
-  /* height: 25vh; */
+  height: 30vh;
   ${mobile({flexDirection:"column"})}
 `
 const Left = styled.div`
@@ -84,7 +84,7 @@ const Footer = () => {
   return (
     <Container>
       <Left>
-        <Logo>XARA.</Logo>
+        <Logo>élegance</Logo>
         <Desc>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia
           architecto eum debitis dolor sit cumque, modi cupiditate inventore

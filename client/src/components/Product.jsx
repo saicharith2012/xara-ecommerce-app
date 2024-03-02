@@ -31,17 +31,21 @@ const Container = styled.div`
   align-items: center;
   position: relative;
   background-color: #f7f7ff;
+  overflow: hidden;
 
   &:hover ${Info} {
     opacity: 1;
+    width: 100%;
   }
   ${mobile({minWidth:"40%",overflow:"hidden", height: "100%", maxWidth: "47%"})}
 
   `
 
 const Image = styled.img`
-  height: 100%;
-  object-fit: cover;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
   ${mobile({height: "30vh"})}
 
 `
@@ -61,8 +65,9 @@ const Icon = styled.div`
   transition: all 0.5s ease;
 
   &:hover{
-    background-color: #e9f5f5;
-    transform: scale(1.1);
+    background-color: ${(props)=> props.bgcolor};
+    // transform: scale(1.1);
+    color: ${(props)=> props.color};
   }
   ${mobile({width: "25px", height:"25px", padding:"4px"})}
 
@@ -73,13 +78,13 @@ const Product = ({ item }) => {
     <Container>
       <Image src={item.img} />
       <Info>
-        <Icon placeholder="">
-          <ShoppingCartOutlinedIcon />
+        <Icon placeholder="" bgcolor={"black"} color="white">
+          <ShoppingCartOutlinedIcon/>
         </Icon>
-        <Icon>
+        <Icon bgcolor={"black"} color="white">
           <SearchOutlinedIcon />
         </Icon>
-        <Icon>
+        <Icon bgcolor={"#EE4B2B"} color="white">
           <FavoriteBorderOutlinedIcon />
         </Icon>
       </Info>

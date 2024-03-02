@@ -88,7 +88,7 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>XARA.</Logo>
+          <Logo>élegance</Logo>
         </Center>
         <Right>
           <MenuItem>REGISTER</MenuItem>

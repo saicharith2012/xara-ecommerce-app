@@ -43,6 +43,12 @@ color: black;
 font-weight: 700;
 cursor: pointer;
 font-size: large;
+transition: all ease 0.5s;
+
+&:hover {
+  background-color: rgba(0,0,0,1);
+  color: white;
+}
 `
 
 const CategoryItem = ({item}) => {
