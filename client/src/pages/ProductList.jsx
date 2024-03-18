@@ -35,6 +35,9 @@ const FilterContainer = styled.div`
   margin-right: 10px;
   padding: 10px;
   ${mobile({margin:"5px 0px 0px 0px"})}
+  &:focus {
+    outline: none
+  }
 `
 
 const Option = styled.option`

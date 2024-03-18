@@ -46,6 +46,9 @@ const SearchContainer = styled.div`
 const Input = styled.input`
   border: none;
   ${mobile({width: "50px"})}
+  &:focus {
+    outline: none
+  }
 
 `;
 
@@ -83,7 +86,7 @@ const Navbar = () => {
         <Left>
           <Language>EN</Language>
           <SearchContainer>
-            <Input placeholder="Search" />
+            <Input placeholder="Search"/>
             <SearchIcon style={{ color: "gray", fontSize: 16 }} />
           </SearchContainer>
         </Left>
