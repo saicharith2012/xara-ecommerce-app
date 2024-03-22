@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Router } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
@@ -36,10 +36,14 @@ app.use(
 // Improved performance, Reduced server load.
 app.use(express.static("public"));
 
-
 // intercepts the requests to the server that have cookies
 // parses the cookie header and stores the cookie data in req.cookies object
 // this data becomes accessible to the route handlers.
-app.use(cookieParser())
+app.use(cookieParser());
+
+// routes
+import userRouter from "./routes/user.routes.js";
+
+app.use("/api/v1/users", userRouter);
 
 export default app;
