@@ -48,7 +48,7 @@ const ProductList = () => {
     <Container>
       <Navbar />
       <Announcement />
-      <Title>Dresses</Title>
+      <Title>Collection</Title>
       <FilterContainer>
         {/* contains two filters -- product filter and sorting filter. */}
         <Filter>

@@ -282,7 +282,6 @@ const updateUserData = asyncHandler(async (req, res) => {
 
   // update the data based on the extracted user id
   const user = await User.findByIdAndUpdate(
-
     req.user?._id,
     {
       $set: {
@@ -303,7 +302,7 @@ const updateUserData = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, user, "User successfully updated."));
 });
 
-// get user data
+// get current user data
 const getCurrentUserData = asyncHandler(async (req, res) => {
   // use the data that is added to the header when jwt is verified
 
@@ -318,6 +317,47 @@ const getCurrentUserData = asyncHandler(async (req, res) => {
   );
 });
 
+// delete user - admin privilege.
+const deleteUser = asyncHandler(async (req, res) => {
+  // get the user id from the header
+  // delete the user from the database
+  const user = await User.findByIdAndDelete(req.params?.id);
+
+  if (!user) {
+    throw new ApiError(401, "user not found.");
+  }
+  // send response
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, `User ${user.firstname} has been deleted!`));
+});
+
+// get any user's data - admin privilege.
+const getUserData = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select(
+    "-password -refreshToken"
+  );
+
+  if (!user) {
+    throw new ApiError(400, "User does not exist.");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, user, "User data successfully fetched."));
+});
+
+// get all users - admin privilege
+const getAllUsers = asyncHandler(async (req, res) => {
+  const query = req.query?.new;
+
+  const users = query
+    ? await User.find().sort({ _id: -1 }).limit(5)
+    : await User.find();
+
+  res.status(200).json(new ApiResponse(200, users, "users data fetched."));
+});
+
 export {
   registerUser,
   loginUser,
@@ -326,4 +366,7 @@ export {
   logoutUser,
   updateUserData,
   getCurrentUserData,
+  deleteUser,
+  getUserData,
+  getAllUsers
 };

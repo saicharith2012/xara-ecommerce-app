@@ -47,4 +47,15 @@ const verifyTokenAndAuthorization = asyncHandler(async (req, res, next) => {
   });
 });
 
-export { verifyJWT, verifyTokenAndAuthorization };
+// middleware for admin privileges
+const verifyTokenAndAdmin = asyncHandler(async (req, res, next) => {
+  verifyJWT(req, res, () => {
+    if(req.user.isAdmin) {
+      next();
+    } else {
+      throw new ApiError(403, "Unauthorized request.")
+    }
+  })
+})
+
+export { verifyJWT, verifyTokenAndAuthorization, verifyTokenAndAdmin };

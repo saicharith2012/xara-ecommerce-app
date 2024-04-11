@@ -67,16 +67,16 @@ const FilterTitle = styled.span`
   ${mobile({ fontSize: "16px" })}
 `
 
-const FilterColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 1px solid black;
-  background-color: ${(props) => props.color};
-  margin: 0px 5px;
-  cursor: pointer;
-  ${mobile({ width: "15px", height: "15px", margin: "0px 3px" })}
-`
+// const FilterColor = styled.div`
+//   width: 20px;
+//   height: 20px;
+//   border-radius: 50%;
+//   border: 1px solid black;
+//   background-color: ${(props) => props.color};
+//   margin: 0px 5px;
+//   cursor: pointer;
+//   ${mobile({ width: "15px", height: "15px", margin: "0px 3px" })}
+// `
 
 const FilterSize = styled.select`
   margin-left: 10px;
@@ -143,14 +143,14 @@ const Product = () => {
           </Desc>
           <Price>Rs. 1499</Price>
           <FilterContainer>
-            <Filter>
+            {/* <Filter>
               <FilterTitle>Color</FilterTitle>
               <FilterColor color='black' />
               <FilterColor color='darkblue' />
               <FilterColor color='gray' />
               <FilterColor color='green' />
               <FilterColor color='white' />
-            </Filter>
+            </Filter> */}
             <Filter>
               <FilterTitle>Size</FilterTitle>
               <FilterSize>

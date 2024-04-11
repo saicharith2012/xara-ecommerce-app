@@ -43,6 +43,10 @@ const Input = styled.input`
 border: none;
 flex:9;
 padding-left: 20px;
+font-size: 16px;
+&:focus {
+  outline: none;
+}
 ${mobile({paddingLeft: "10px"})}
 
 `

@@ -45,6 +45,7 @@ const SearchContainer = styled.div`
 
 const Input = styled.input`
   border: none;
+  font-size: 16px;
   ${mobile({width: "50px"})}
   &:focus {
     outline: none
