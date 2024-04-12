@@ -358,6 +358,41 @@ const getAllUsers = asyncHandler(async (req, res) => {
   res.status(200).json(new ApiResponse(200, users, "users data fetched."));
 });
 
+// get user stats -admin privilege
+const getUserStats = asyncHandler(async (req, res) => {
+  const date = new Date();
+  const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
+
+  const data = await User.aggregate([
+    {
+      $match: {
+        createdAt: { $gte: lastYear },
+      },
+    },
+    {
+      $project : {
+        month : {
+          $month : "$createdAt"
+        }
+      }
+    },
+    {
+      $group : {
+        _id : "$month",
+        total : {$sum : 1}
+      }
+    }
+  ]);
+
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      data,
+      "User stats successfully fetched."
+    )
+  )
+});
+
 export {
   registerUser,
   loginUser,
@@ -368,5 +403,6 @@ export {
   getCurrentUserData,
   deleteUser,
   getUserData,
-  getAllUsers
+  getAllUsers,
+  getUserStats,
 };
