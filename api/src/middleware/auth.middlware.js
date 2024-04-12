@@ -50,7 +50,7 @@ const verifyTokenAndAuthorization = asyncHandler(async (req, res, next) => {
 // middleware for admin privileges
 const verifyTokenAndAdmin = asyncHandler(async (req, res, next) => {
   verifyJWT(req, res, () => {
-    if(req.user.isAdmin) {
+    if(req.user?.isAdmin) {
       next();
     } else {
       throw new ApiError(403, "Unauthorized request.")
