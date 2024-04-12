@@ -10,6 +10,7 @@ import {
   deleteUser,
   getUserData,
   getAllUsers,
+  getUserStats,
 } from "../controllers/user.controllers.js";
 import {
   verifyJWT,
@@ -39,7 +40,7 @@ router
 router.route("/logout").post(verifyTokenAndAuthorization, logoutUser);
 
 // update user data
-router.route("/update-user").put(verifyTokenAndAuthorization, updateUserData);
+router.route("/update-user").patch(verifyTokenAndAuthorization, updateUserData);
 
 // get current user data
 router
@@ -54,5 +55,8 @@ router.route("/user/:id").get(verifyTokenAndAdmin, getUserData);
 
 // get all users
 router.route("/all-users").get(verifyTokenAndAdmin, getAllUsers)
+
+// get user stats
+router.route("/user-stats").get(verifyTokenAndAdmin, getUserStats)
 
 export default router;
