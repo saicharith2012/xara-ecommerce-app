@@ -6,17 +6,33 @@ import { Product } from "../models/product.models.js";
 // ADMIN PRIVILEGES
 // create product
 const createProduct = asyncHandler(async (req, res) => {
-  const newProduct = new Product(req.body);
+  const { title, description, image, categories, size, color, price } =
+    req.body;
 
-  const savedProduct = await newProduct.save();
+  // check if product already exists
+  const existingProduct = await Product.findOne({ title });
 
-  if (!savedProduct) {
+  if (existingProduct) {
+    throw new ApiError(409, "Product already exists.");
+  }
+
+  const newProduct = await Product.create({
+    title,
+    description,
+    image,
+    categories,
+    size,
+    color,
+    price,
+  });
+
+  if (!newProduct) {
     throw new ApiError(500, err?.message, "Product creation failed.");
   }
 
   return res
     .status(200)
-    .json(new ApiResponse(200, savedProduct, "Product added successfully."));
+    .json(new ApiResponse(200, newProduct, "Product added successfully."));
 });
 
 // update product
@@ -52,7 +68,6 @@ const deleteProduct = asyncHandler(async (req, res) => {
 
   return res.status(200).json(200, "product deleted successfully.");
 });
-
 
 // USER PRIVILEGES
 // get product details
