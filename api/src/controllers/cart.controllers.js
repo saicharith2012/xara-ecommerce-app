@@ -7,13 +7,15 @@ import { Cart } from "../models/cart.models.js";
 const createCart = asyncHandler(async (req, res) => {
   const cart = new Cart(req.body);
 
-  if (!cart) {
+  const savedCart = await cart.save()
+
+  if (!savedCart) {
     throw new ApiError(500, "cart creation failed.");
   }
 
   return res
     .status(200)
-    .json(new ApiResponse(200, cart, "Cart successfully created."));
+    .json(new ApiResponse(200, savedCart, "Cart successfully created."));
 });
 
 // update cart
