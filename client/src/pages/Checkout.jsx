@@ -1,4 +1,4 @@
-// import styled from "styled-components";
+import styled from "styled-components";
 import { loadStripe } from "@stripe/stripe-js";
 import { useCallback } from "react";
 import {
@@ -6,13 +6,9 @@ import {
   EmbeddedCheckoutProvider,
 } from "@stripe/react-stripe-js";
 
-// const Container = styled.div`
-//   text-align: center;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   height: 100vh;
-// `;
+const Container = styled.div`
+  padding: 100px;
+`;
 
 // const PayButton = styled.button`
 //   background-color: black;
@@ -50,9 +46,7 @@ export const CheckoutForm = () => {
 
   return (
     <div id="checkout">
-      {/* <Container>
-          <PayButton>Pay</PayButton>
-      </Container> */}
+      <Container>
 
       <EmbeddedCheckoutProvider
         stripe={stripePromise}
@@ -60,6 +54,7 @@ export const CheckoutForm = () => {
       >
         <EmbeddedCheckout/>
       </EmbeddedCheckoutProvider>
+      </Container>
     </div>
   );
 };
