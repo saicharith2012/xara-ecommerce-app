@@ -92,7 +92,7 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>élegance</Logo>
+          <Logo>elegancé</Logo>
         </Center>
         <Right>
           <MenuItem>REGISTER</MenuItem>
