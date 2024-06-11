@@ -4,7 +4,7 @@ import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutl
 import { useState } from "react"
 import { sliderItems } from "../data"
 import { mobile } from "../responsive"
-
+import { useNavigate } from "react-router-dom"
 
 const Container = styled.div`
   width: 100%;
@@ -93,6 +93,8 @@ const Button = styled.button`
 `
 
 const Slider = () => {
+  const Navigate = useNavigate()
+
   // using usestate hook to render the page each time slideIndex gets updated
   const [slideIndex, setSlideIndex] = useState(0)
   const handleClick = (direction) => {
@@ -104,6 +106,9 @@ const Slider = () => {
     }
   }
 
+  const handleButtonClick = () => {
+    Navigate("/products/all")
+  }
   return (
     <div>
       <Container>
@@ -119,7 +124,7 @@ const Slider = () => {
               <InfoContainer>
                 <Title>{item.title}</Title>
                 <Desc>{item.desc}</Desc>
-                <Button>SHOP NOW</Button>
+                <Button onClick={handleButtonClick}>SHOP NOW</Button>
               </InfoContainer>
             </Slide>
           ))}
