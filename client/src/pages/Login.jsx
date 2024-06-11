@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mobile } from "../responsive";
+import { mobile, medium } from "../responsive";
 
 const Container = styled.div`
   width: 100vw;
@@ -33,6 +33,7 @@ const Wrapper = styled.div`
   margin-left: 8%;
   border-radius: 10px;
   ${mobile({ width: "70%", margin: "0px" })}
+  ${medium({ width: "60%", margin: "0px" })}
 `;
 
 const Title = styled.h1`
