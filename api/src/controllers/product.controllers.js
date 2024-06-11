@@ -6,7 +6,7 @@ import { Product } from "../models/product.models.js";
 // ADMIN PRIVILEGES
 // create product
 const createProduct = asyncHandler(async (req, res) => {
-  const { title, description, image, categories, size, color, price } =
+  const { title, description, image, gender, type, size, color, price } =
     req.body;
 
   // check if product already exists
@@ -20,7 +20,8 @@ const createProduct = asyncHandler(async (req, res) => {
     title,
     description,
     image,
-    categories,
+    gender,
+    type,
     size,
     color,
     price,
@@ -88,13 +89,16 @@ const getAllProducts = asyncHandler(async (req, res) => {
   let products;
 
   if (req.query?.new) {
-    products = await Product.find().sort({ createdAt: 1 }).limit(5);
-  } else if (req.query?.categories) {
-    products = await Product.find({
-      categories: {
-        $in: [req.query.categories],
-      },
-    });
+    products = await Product.find().sort({ createdAt: 1 }).limit(3);
+  } else if (req.query?.gender || req.query?.type) {
+    const filter = {}
+    if(req.query.gender) {
+      filter.gender = req.query.gender;
+    }
+    if(req.query.type) {
+      filter.type = req.query.type
+    }
+    products = await Product.find(filter);
   } else {
     products = await Product.find();
   }
