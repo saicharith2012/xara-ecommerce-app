@@ -25,7 +25,7 @@ const Container = styled.div`
   flex: 1;
   margin: 5px;
   min-width: 19%;
-  height: 450px;
+  height: 428px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,7 +76,7 @@ const Icon = styled.div`
 const Product = ({ item }) => {
   return (
     <Container>
-      <Image src={item.img} />
+      <Image src={item.image} />
       <Info>
         <Icon placeholder="" bgcolor={"black"} color="white">
           <ShoppingCartOutlinedIcon/>

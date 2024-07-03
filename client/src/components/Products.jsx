@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Product from "./Product";
-import { popularProducts } from "../data";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { mobile } from "../responsive";
 
@@ -17,58 +16,70 @@ const Container = styled.div`
 `;
 
 const Products = ({ category, filters, sort }) => {
-  const productsCategory = useMemo(() => {
-    if (filters?.gender) {
-      return filters?.gender;
-    } else {
-      return category; // Fallback to the original category
-    }
-  }, [category, filters.gender]);
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   const checkCategory = (category) => {
-    if (category === "new") {
-      const link = `http://localhost:4000/api/v1/products/all-products?new=true`;
-      return link;
-    } else if (category === "all") {
-      const link = `http://localhost:4000/api/v1/products/all-products`;
-      return link;
-    } else if (category === "men" || category === "women") {
-      const link = `http://localhost:4000/api/v1/products/all-products?gender=${category}`;
-      return link;
+    let link;
+    if (category === "all") {
+      link = "http://localhost:4000/api/v1/products/all-products";
+    } else if (category === "new") {
+      link = "http://localhost:4000/api/v1/products/all-products?new=true";
+    } else if (category === "men" || "women") {
+      link = `http://localhost:4000/api/v1/products/all-products?gender=${category}`;
+    } else if (category === "jackets") {
+      link = `http://localhost:4000/api/v1/products/all-products?type=${category}`;
     } else {
-      const link = `http://localhost:4000/api/v1/products/all-products?type=${category}`;
-      return link;
+      link = "";
     }
+    return link;
   };
 
   useEffect(() => {
     const getProducts = async () => {
-      try {
-        const link = checkCategory(productsCategory);
-        const response = await axios.get(link);
-        setProducts(response.data.data);
-      } catch (error) {}
+      // console.log(category);
+      const link = checkCategory(category);
+      const response = await axios.get(link);
+      console.log(response.data.data);
+      setProducts(response.data.data);
     };
     getProducts();
-  }, [productsCategory]);
+  }, [category]);
 
   useEffect(() => {
     const getFilteredProducts = async () => {
       try {
-        setFilteredProducts(
-          products.filter((item) =>
-            Object.entries(filters).every(([key, value]) => 
-              value === "all" ? products :
-              item[key].includes(value)
-            )
-          )
-        );
+        console.log(filters);
+        if (filters) {
+          let tempProducts = products;
+
+          if (filters.gender) {
+            tempProducts =
+              filters.gender === "all"
+                ? products
+                : tempProducts.filter(
+                    (product) => product.gender === filters.gender
+                  );
+          }
+
+          if (filters.type) {
+            tempProducts =
+              filters.type === "all"
+                ? products
+                : tempProducts.filter(
+                    (product) => product.type === filters.type
+                  );
+          }
+
+          setFilteredProducts(tempProducts);
+        } else {
+          setFilteredProducts(products);
+        }
+        // console.log(productsAfterFilter)
       } catch (error) {}
     };
     getFilteredProducts();
-  }, [products, filters]);
+  }, [filters, products]);
 
   return (
     <Container>

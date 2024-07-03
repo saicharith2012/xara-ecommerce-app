@@ -53,72 +53,49 @@ const Option = styled.option``;
 const ProductList = () => {
   const location = useLocation();
   const category = location.pathname.split("/")[2];
+
   const [filters, setFilters] = useState({});
+  // console.log(filters);
   const [sort, setSort] = useState("newest");
 
   const handleFilters = (e) => {
-    if (category === "jackets") {
-      setFilters({
-        ...filters,
-        type: "jackets",
-        [e.target.name]: e.target.value,
-      });
-    } else {
-      setFilters({
-        ...filters,
-        [e.target.name]: e.target.value,
-      });
-    }
+    setFilters({
+      ...filters,
+      [e.target.name]: e.target.value,
+    });
   };
-
-  console.log(filters);
 
   return (
     <div style={{ paddingTop: "60px" }}>
       <Container>
         <Navbar />
         <Announcement />
-        <Title>Collection</Title>
+        <Title></Title>
+
         <FilterContainer>
           {/* contains two filters -- product filter and sorting filter. */}
-          <Filter>
-            <FilterText>Filter</FilterText>
-            <Select name="gender" onChange={handleFilters}>
-              <Option disabled selected>
-                Gender
-              </Option>
-              {category === "men" ? (
-                <Option value="men" selected>
-                  Men
+          {category === "all" && (
+            <Filter>
+              <FilterText>Filter</FilterText>
+              <Select name="gender" onChange={handleFilters}>
+                <Option disabled selected>
+                  Gender
                 </Option>
-              ) : (
                 <Option value="men">Men</Option>
-              )}
-              {category === "women" ? (
-                <Option value="women" selected>
-                  Women
-                </Option>
-              ) : (
                 <Option value="women">Women</Option>
-              )}{" "}
-              <Option value="all">All</Option>
-            </Select>
-            <Select name="type" onChange={handleFilters}>
-              <Option disabled selected>
-                Type
-              </Option>
-              <Option value="suits">Suits</Option>
-              {category === "jackets" ? (
-                <Option value="jackets" selected>
-                  Jackets{" "}
+                <Option value="all">All</Option>
+              </Select>
+              <Select name="type" onChange={handleFilters}>
+                <Option disabled selected>
+                  Type
                 </Option>
-              ) : (
+                <Option value="suits">Suits</Option>
                 <Option value="jackets">Jackets</Option>
-              )}{" "}
-              <Option value="accessories">Accessories</Option>
-              <Option value="all">All</Option>
-            </Select>
-          </Filter>
+                <Option value="accessories">Accessories</Option>
+                <Option value="all">All</Option>
+              </Select>
+            </Filter>
+          )}
           <Filter>
             <FilterText>Sort</FilterText>
             <Select onChange={(e) => setSort(e.target.value)}>
@@ -130,6 +107,7 @@ const ProductList = () => {
             </Select>
           </Filter>
         </FilterContainer>
+
         <Products category={category} filters={filters} sort={sort} />
         <Footer />
       </Container>
