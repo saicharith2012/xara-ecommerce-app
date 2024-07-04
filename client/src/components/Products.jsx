@@ -26,10 +26,10 @@ const Products = ({ category, filters, sort }) => {
       link = "http://localhost:4000/api/v1/products/all-products";
     } else if (category === "new") {
       link = "http://localhost:4000/api/v1/products/all-products?new=true";
-    } else if (category === "men" || "women") {
-      link = `http://localhost:4000/api/v1/products/all-products?gender=${category}`;
     } else if (category === "jackets") {
-      link = `http://localhost:4000/api/v1/products/all-products?type=${category}`;
+      link = "http://localhost:4000/api/v1/products/all-products?type=jackets";
+    } else if (category === "men" || category === "women") {
+      link = `http://localhost:4000/api/v1/products/all-products?gender=${category}`;
     } else {
       link = "";
     }
@@ -40,6 +40,7 @@ const Products = ({ category, filters, sort }) => {
     const getProducts = async () => {
       // console.log(category);
       const link = checkCategory(category);
+      // console.log(link)
       const response = await axios.get(link);
       console.log(response.data.data);
       setProducts(response.data.data);
@@ -86,7 +87,9 @@ const Products = ({ category, filters, sort }) => {
     // console.log(sort);
     if (sort === "newest") {
       setSortedProducts((prev) =>
-        [...filteredProducts].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        [...filteredProducts].sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        )
       );
     } else if (sort === "asc") {
       setSortedProducts((prev) =>
@@ -97,7 +100,7 @@ const Products = ({ category, filters, sort }) => {
         [...filteredProducts].sort((a, b) => b.price - a.price)
       );
     } else {
-      setSortedProducts([...filteredProducts])
+      setSortedProducts([...filteredProducts]);
     }
   }, [filteredProducts, sort]);
 
