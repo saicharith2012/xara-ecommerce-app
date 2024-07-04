@@ -89,7 +89,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
   let products;
 
   if (req.query?.new) {
-    products = await Product.find().sort({ createdAt: 1 }).limit(3);
+    products = await Product.find().sort({ createdAt: 1 }).limit(5);
   } else if (req.query?.gender || req.query?.type) {
     const filter = {}
     if(req.query.gender) {
