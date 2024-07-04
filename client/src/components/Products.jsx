@@ -18,6 +18,7 @@ const Container = styled.div`
 const Products = ({ category, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [sortedProducts, setSortedProducts] = useState([]);
 
   const checkCategory = (category) => {
     let link;
@@ -71,19 +72,38 @@ const Products = ({ category, filters, sort }) => {
                   );
           }
 
+          // console.log(tempProducts)
           setFilteredProducts(tempProducts);
         } else {
           setFilteredProducts(products);
         }
-        // console.log(productsAfterFilter)
       } catch (error) {}
     };
     getFilteredProducts();
   }, [filters, products]);
 
+  useEffect(() => {
+    // console.log(sort);
+    if (sort === "newest") {
+      setSortedProducts((prev) =>
+        [...filteredProducts].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      );
+    } else if (sort === "asc") {
+      setSortedProducts((prev) =>
+        [...filteredProducts].sort((a, b) => a.price - b.price)
+      );
+    } else if (sort === "desc") {
+      setSortedProducts((prev) =>
+        [...filteredProducts].sort((a, b) => b.price - a.price)
+      );
+    } else {
+      setSortedProducts([...filteredProducts])
+    }
+  }, [filteredProducts, sort]);
+
   return (
     <Container>
-      {filteredProducts.map((item, key) => (
+      {sortedProducts.map((item, key) => (
         <Product item={item} key={key} />
       ))}
     </Container>

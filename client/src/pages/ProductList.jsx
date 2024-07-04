@@ -34,8 +34,8 @@ const Filter = styled.div`
 `;
 
 const FilterText = styled.p`
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 20px;
+  font-weight: 500;
   margin-right: 15px;
 `;
 
