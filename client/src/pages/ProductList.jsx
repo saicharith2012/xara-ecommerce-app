@@ -10,7 +10,9 @@ import { useState } from "react";
 
 const Container = styled.div``;
 
-const Title = styled.h1`
+const Title = styled.p`
+  font-size: 62px;
+  font-weight: 800;
   margin: 30px 10px 10px 20px;
   display: flex;
   justify-content: center;
@@ -70,13 +72,15 @@ const ProductList = () => {
       <Container>
         <Navbar />
         <Announcement />
-        <Title></Title>
+        <Title>
+          {category === "all" ? "COLLECTION" : category.toUpperCase()}
+        </Title>
 
         <FilterContainer>
           {/* contains two filters -- product filter and sorting filter. */}
-          {category === "all" && (
-            <Filter>
-              <FilterText>Filter</FilterText>
+          <Filter>
+            <FilterText>Filter</FilterText>
+            {category !== "men" && category !== "women" && (
               <Select name="gender" onChange={handleFilters}>
                 <Option disabled selected>
                   Gender
@@ -85,6 +89,8 @@ const ProductList = () => {
                 <Option value="women">Women</Option>
                 <Option value="all">All</Option>
               </Select>
+            )}
+            {category !== "jackets" && (
               <Select name="type" onChange={handleFilters}>
                 <Option disabled selected>
                   Type
@@ -94,8 +100,9 @@ const ProductList = () => {
                 <Option value="accessories">Accessories</Option>
                 <Option value="all">All</Option>
               </Select>
-            </Filter>
-          )}
+            )}
+          </Filter>
+
           <Filter>
             <FilterText>Sort</FilterText>
             <Select onChange={(e) => setSort(e.target.value)}>
