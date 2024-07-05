@@ -3,6 +3,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined"
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined"
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined"
 import { mobile } from "../responsive"
+import { Link } from "react-router-dom"
 
 
 const Info = styled.div`
@@ -62,7 +63,7 @@ const Icon = styled.div`
   align-items: center;
   justify-content: center;
   margin: 5px 10px;
-  transition: all 0.5s ease;
+  transition: all 0.25s ease;
 
   &:hover{
     background-color: ${(props)=> props.bgcolor};
@@ -81,9 +82,11 @@ const Product = ({ item }) => {
         <Icon placeholder="" bgcolor={"black"} color="white">
           <ShoppingCartOutlinedIcon/>
         </Icon>
+        <Link to={`/product/${item._id}`} style={{textDecoration : "none" , color: "black"}}>
         <Icon bgcolor={"black"} color="white">
           <SearchOutlinedIcon />
         </Icon>
+        </Link>
         <Icon bgcolor={"#EE4B2B"} color="white">
           <FavoriteBorderOutlinedIcon />
         </Icon>
