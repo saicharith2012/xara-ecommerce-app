@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import Product from "./Product";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { mobile } from "../responsive";
+import { publicRequest } from "../requestMethods";
 
 const Container = styled.div`
   padding: 20px 20px 60px 20px;
@@ -23,13 +23,13 @@ const Products = ({ category, filters, sort }) => {
   const checkCategory = (category) => {
     let link;
     if (category === "all") {
-      link = "http://localhost:4000/api/v1/products/all-products";
+      link = "products/all-products";
     } else if (category === "new") {
-      link = "http://localhost:4000/api/v1/products/all-products?new=true";
+      link = "products/all-products?new=true";
     } else if (category === "jackets") {
-      link = "http://localhost:4000/api/v1/products/all-products?type=jackets";
+      link = "products/all-products?type=jackets";
     } else if (category === "men" || category === "women") {
-      link = `http://localhost:4000/api/v1/products/all-products?gender=${category}`;
+      link = `products/all-products?gender=${category}`;
     } else {
       link = "";
     }
@@ -41,7 +41,7 @@ const Products = ({ category, filters, sort }) => {
       // console.log(category);
       const link = checkCategory(category);
       // console.log(link)
-      const response = await axios.get(link);
+      const response = await publicRequest.get(link);
       console.log(response.data.data);
       setProducts(response.data.data);
     };
