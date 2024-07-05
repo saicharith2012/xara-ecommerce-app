@@ -166,6 +166,8 @@ const Button = styled.button`
 
 const Cart = () => {
   return (
+    <div style={{ paddingTop: "60px" }}>
+
     <Container>
       <Navbar />
       <Announcement />
@@ -284,6 +286,7 @@ const Cart = () => {
       </Wrapper>
       <Footer />
     </Container>
+    </div>
   )
 }
 
