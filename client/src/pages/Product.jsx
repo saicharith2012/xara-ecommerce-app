@@ -1,50 +1,72 @@
-import styled from "styled-components"
-import Navbar from "../components/Navbar"
-import Announcement from "../components/Announcement"
-import Newsletter from "../components/Newsletter"
-import Footer from "../components/Footer"
-import RemoveIcon from "@mui/icons-material/Remove"
-import AddIcon from "@mui/icons-material/Add"
-import { mobile } from "../responsive"
+import styled from "styled-components";
+import Navbar from "../components/Navbar";
+import Announcement from "../components/Announcement";
+import Newsletter from "../components/Newsletter";
+import Footer from "../components/Footer";
+import RemoveIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add";
+import { medium, mobile } from "../responsive";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { publicRequest } from "../requestMethods";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/slices/cartSlice";
 
-const Container = styled.div``
+const Container = styled.div`
+  padding-top: 60px;
+`;
 
 const Wrapper = styled.div`
+  ${"" /* height: 60vh; */}
   padding: 50px;
   display: flex;
-  ${mobile({ flexDirection: "column", padding: "25px 15px" })}
-`
+  ${mobile({
+    flexDirection: "column",
+    padding: "25px 10px",
+    alignItems: "center",
+  })}
+  ${medium({
+    flexDirection: "column",
+    padding: "25px 10px",
+    alignItems: "center",
+  })}
+`;
 
 const ImgContainer = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
   ${mobile({ marginBottom: "30px" })}
-`
+  ${medium({ marginBottom: "30px" })}
+`;
 
 const Image = styled.img`
-  width: 50%;
   ${mobile({ width: "70%" })}
-`
+`;
 
 const InfoContainer = styled.div`
   flex: 1;
   padding: 0px 50px;
   ${mobile({ padding: "0px 10px" })}
-`
+`;
 
 const Title = styled.h1`
-  font-weight: 200;
-`
+  font-size: 64px;
+  font-weight: 600;
+
+  ${mobile({ fontSize: "36px" })}
+`;
 
 const Desc = styled.p`
   margin: 20px 0px;
-`
+  font-size: 16px;
+`;
 
 const Price = styled.span`
-  font-size: 40px;
-  font-weight: 200;
-`
+  font-size: 36px;
+  font-weight: 400;
+  ${mobile({ fontSize: "24px" })}
+`;
 
 const FilterContainer = styled.div`
   width: 50%;
@@ -52,20 +74,21 @@ const FilterContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
+  ${mobile({ margin: "15px 0px" })}
+`;
 
 const Filter = styled.div`
   display: flex;
   align-items: center;
   ${mobile({ marginRight: "15px" })}
-`
+`;
 
 const FilterTitle = styled.span`
-  font-size: 20px;
-  font-weight: 200;
+  font-size: 16px;
+  font-weight: 400;
   margin-right: 5px;
   ${mobile({ fontSize: "16px" })}
-`
+`;
 
 // const FilterColor = styled.div`
 //   width: 20px;
@@ -81,23 +104,26 @@ const FilterTitle = styled.span`
 const FilterSize = styled.select`
   margin-left: 10px;
   padding: 5px;
-`
 
-const FilterSizeOption = styled.option``
+  &:focus {
+    outline: none;
+  }
+`;
+
+const FilterSizeOption = styled.option``;
 
 const AddContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 35%;
   justify-content: space-between;
   ${mobile({ width: "80%" })}
-`
+`;
 
 const AmountContainer = styled.div`
   display: flex;
   align-items: center;
   font-weight: 700;
-`
+`;
 const Amount = styled.span`
   width: 30px;
   height: 30px;
@@ -107,7 +133,7 @@ const Amount = styled.span`
   justify-content: center;
   align-items: center;
   margin: 0px 5px;
-`
+`;
 
 const Button = styled.button`
   padding: 15px;
@@ -115,69 +141,102 @@ const Button = styled.button`
   background-color: white;
   cursor: pointer;
   font-weight: 500;
+  margin: 20px 0px;
 
   &:hover {
     background-color: #f8f4f4;
   }
-`
+  ${mobile({ padding: "7px" })}
+`;
 
 const Product = () => {
+  const location = useLocation();
+  const productId = location.pathname.split("/")[2];
+  // console.log(productId)
+
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const [size, setSize] = useState();
+  // console.log(size)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getProduct = async (id) => {
+      const response = await publicRequest.get(`products/get-product/${id}`);
+      // console.log(response.data.data)
+      setProduct(response.data.data);
+    };
+    getProduct(productId);
+  }, [productId]);
+
+  useEffect(() => {
+    if (product?.size?.length > 0) {
+      setSize(product.size[0]);
+    }
+  }, [product?.size]);
+
+  const handleQuantity = (value) => {
+    setQuantity((q) => {
+      if (value === "increment") {
+        return q + 1;
+      } else if (value === "decrement" && q > 1) {
+        return q - 1;
+      } else {
+        return q;
+      }
+    });
+  };
+
+  const handleClick = () => {
+    dispatch(
+      addProduct({...product, productQuantity: quantity, size})
+    );
+    setQuantity(1);
+  };
+
   return (
     <Container>
       <Navbar />
       <Announcement />
       <Wrapper>
         <ImgContainer>
-          <Image src='https://res.cloudinary.com/dgiksl9k7/image/upload/v1683351711/xara-ecommerce-app/products/4467449812_1_1_1_ng6zwr.jpg' />
+          <Image src={product.image} />
         </ImgContainer>
         <InfoContainer>
-          <Title>Textured Suit Blazer</Title>
-          <Desc>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo
-            qui aut incidunt sed. Nesciunt ipsum possimus laborum obcaecati iure
-            tenetur quibusdam, accusantium rerum, repellendus assumenda enim
-            maxime, porro quidem ratione. Lorem, ipsum dolor sit amet
-            consectetur adipisicing elit. Repellendus labore ipsa qui omnis
-            repudiandae, cum corrupti officiis atque odit, delectus quis odio
-            ipsam obcaecati accusantium nemo! Expedita commodi modi quis?
-          </Desc>
-          <Price>Rs. 1499</Price>
+          <Title>{product.title}</Title>
+          <Desc>{product.description}</Desc>
+          <Price>Rs. {product.price}</Price>
           <FilterContainer>
-            {/* <Filter>
-              <FilterTitle>Color</FilterTitle>
-              <FilterColor color='black' />
-              <FilterColor color='darkblue' />
-              <FilterColor color='gray' />
-              <FilterColor color='green' />
-              <FilterColor color='white' />
-            </Filter> */}
             <Filter>
               <FilterTitle>Size</FilterTitle>
-              <FilterSize>
-                <FilterSizeOption>XS</FilterSizeOption>
-                <FilterSizeOption>S</FilterSizeOption>
-                <FilterSizeOption>M</FilterSizeOption>
-                <FilterSizeOption>L</FilterSizeOption>
-                <FilterSizeOption>XL</FilterSizeOption>
-                <FilterSizeOption>XXL</FilterSizeOption>
+              <FilterSize onChange={(e) => setSize(e.target.value)}>
+                {product?.size?.map((item) => {
+                  return <FilterSizeOption key={item}>{item}</FilterSizeOption>;
+                })}
               </FilterSize>
             </Filter>
           </FilterContainer>
 
           <AddContainer>
             <AmountContainer>
-              <RemoveIcon />
-              <Amount>1</Amount>
-              <AddIcon />
+              <RemoveIcon
+                style={{ cursor: "pointer" }}
+                onClick={() => handleQuantity("decrement")}
+              />
+              <Amount>{quantity}</Amount>
+              <AddIcon
+                style={{ cursor: "pointer" }}
+                onClick={() => handleQuantity("increment")}
+              />
             </AmountContainer>
-            <Button>ADD TO CART</Button>
           </AddContainer>
+          <Button onClick={handleClick}>ADD TO CART</Button>
         </InfoContainer>
       </Wrapper>
       <Newsletter />
       <Footer />
     </Container>
-  )
-}
+  );
+};
 
-export default Product
+export default Product;
