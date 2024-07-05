@@ -30,16 +30,19 @@ export const categories = [
     id: 1,
     img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683248676/xara-ecommerce-app/categories/mens-black-suit-styles-business-professional-ideas_ymnzhw.jpg",
     title: "MEN IN STYLE!",
+    category: "men"
   },
   {
     id: 2,
     img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683248676/xara-ecommerce-app/categories/d5e34a597407651fe900f9f80d7d6fad_gahknf.jpg",
     title: "LADY LOVE!",
+    category: "women"
   },
   {
     id: 3,
     img: "https://res.cloudinary.com/dgiksl9k7/image/upload/v1683248676/xara-ecommerce-app/categories/leatherjacketsmain1_g3qggu.jpg",
     title: "LIGHT JACKETS",
+    category: "jackets"
   },
 ]
 
