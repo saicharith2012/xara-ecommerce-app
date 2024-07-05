@@ -81,7 +81,13 @@ const getProductDetails = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .json(200, productDetails, "Product details fetched successfully.");
+    .json(
+      new ApiResponse(
+        200,
+        productDetails,
+        "Product details fetched successfully."
+      )
+    );
 });
 
 // get all products
@@ -91,12 +97,12 @@ const getAllProducts = asyncHandler(async (req, res) => {
   if (req.query?.new) {
     products = await Product.find().sort({ createdAt: 1 }).limit(6);
   } else if (req.query?.gender || req.query?.type) {
-    const filter = {}
-    if(req.query.gender) {
+    const filter = {};
+    if (req.query.gender) {
       filter.gender = req.query.gender;
     }
-    if(req.query.type) {
-      filter.type = req.query.type
+    if (req.query.type) {
+      filter.type = req.query.type;
     }
     products = await Product.find(filter);
   } else {
