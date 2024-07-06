@@ -1,5 +1,10 @@
 import styled from "styled-components";
 import { mobile, medium } from "../responsive";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { publicRequest } from "../requestMethods";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../redux/slices/authSlice";
 
 const Container = styled.div`
   width: 100vw;
@@ -28,8 +33,8 @@ const Heading = styled.div`
 const Wrapper = styled.div`
   width: 25%;
   padding: 20px 40px 30px 40px;
-  background-color: rgba(255,255,255,0.6);
-  box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+  background-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
   margin-left: 8%;
   border-radius: 10px;
   ${mobile({ width: "70%", margin: "0px" })}
@@ -81,17 +86,66 @@ const Link = styled.a`
 `;
 
 const Login = () => {
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [identifier, setIdentifier] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log(user);
+      navigate("/");
+    } else {
+      console.log("user not logged in.");
+    }
+  }, [user, isAuthenticated, navigate]);
+
+  // console.log(auth)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); //prevents the default behavior of the browser..in this case reloading.
+
+    if (!identifier || !password) {
+      setErrorMessage("Please fill in the fields.");
+      return;
+    }
+
+    try {
+      dispatch(loginUser({ identifier, password }));
+      console.log("logged in successfully.");
+      setErrorMessage("");
+    } catch (error) {
+      setErrorMessage("Invalid credentials. Please try again.");
+      console.log(error);
+    }
+  };
   return (
     <Container>
       <Wrapper>
         <Heading>élegance</Heading>
         <Title>SIGN IN</Title>
-        <Form>
-          <Input placeholder="username or email" />
-          <Input placeholder="password" />
+        <Form onSubmit={handleSubmit}>
+          <Input
+            placeholder="username or email"
+            type="text"
+            value={identifier}
+            onChange={(e) => setIdentifier(e.target.value)}
+            required
+          />
+          <Input
+            placeholder="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
           <Button>LOGIN</Button>
           <Link>DON'T REMEMBER YOUR PASSWORD?</Link>
           <Link>CREATE A NEW ACCOUNT</Link>
+          {errorMessage && <div>{errorMessage}</div>}
         </Form>
       </Wrapper>
     </Container>

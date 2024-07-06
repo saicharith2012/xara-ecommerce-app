@@ -26,6 +26,24 @@ router.route("/register").post(registerUser);
 // login user
 router.route("/login").post(loginUser);
 
+// user profile route
+router.route("/profile").get(verifyJWT, async (req, res) => {
+  try {
+    const user = req.user;
+    res.status(200).json({ user });
+  } catch (error) {
+    const options = {
+      httpOnly: true,
+      secure: true,
+    };
+    res
+      .status(500)
+      .clearCookie("accessToken", options)
+      .clearCookie("refreshToken", options)
+      .json({ error: error.message });
+  }
+});
+
 // change user password
 router
   .route("/change-password")
@@ -54,9 +72,9 @@ router.route("/delete-user/:id").delete(verifyTokenAndAdmin, deleteUser);
 router.route("/user/:id").get(verifyTokenAndAdmin, getUserData);
 
 // get all users
-router.route("/all-users").get(verifyTokenAndAdmin, getAllUsers)
+router.route("/all-users").get(verifyTokenAndAdmin, getAllUsers);
 
 // get user stats
-router.route("/user-stats").get(verifyTokenAndAdmin, getUserStats)
+router.route("/user-stats").get(verifyTokenAndAdmin, getUserStats);
 
 export default router;

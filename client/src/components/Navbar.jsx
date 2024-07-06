@@ -4,9 +4,10 @@ import Badge from "@mui/material/Badge";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { mobile } from "../responsive";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { user } from "../App";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../redux/slices/authSlice";
 
 const Container = styled.div`
   height: 60px;
@@ -81,10 +82,36 @@ const MenuItem = styled.div`
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
-const Navbar = () => {
-  const quantity = useSelector((state) => state.cart.quantity)
+const Button = styled.button`
+  border: none;
+  background-color: white;
+  padding: 0px;
+`;
 
-  console.log(quantity)
+const Navbar = () => {
+  const quantity = useSelector((state) => state.cart.quantity);
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  // console.log(user, isAuthenticated);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // console.log(quantity)
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(logoutUser())
+        .unwrap()
+        .then((response) => {
+          console.log(response.message);
+        });
+      navigate("/");
+      console.log("logged out successfully.");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Container>
       <Wrapper>
@@ -103,17 +130,33 @@ const Navbar = () => {
           </Logo>
         </Center>
         <Right>
-          {!user && (
+          {!isAuthenticated ? (
             <>
-              <MenuItem>REGISTER</MenuItem>
-              <MenuItem>SIGN IN</MenuItem>
+              <Link
+                to="/register"
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <MenuItem>REGISTER</MenuItem>
+              </Link>
+              <Link
+                to="/login"
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <MenuItem>SIGN IN</MenuItem>
+              </Link>
             </>
+          ) : (
+            <Button onClick={handleLogout}>
+              <MenuItem>SIGN OUT</MenuItem>
+            </Button>
           )}
-          <MenuItem>
-            <Badge badgeContent={quantity} color="primary">
-              <ShoppingCartOutlinedIcon />
-            </Badge>
-          </MenuItem>
+          <Link to="/cart">
+            <MenuItem>
+              <Badge badgeContent={quantity} color="primary">
+                <ShoppingCartOutlinedIcon />
+              </Badge>
+            </MenuItem>
+          </Link>
         </Right>
       </Wrapper>
     </Container>
