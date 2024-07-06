@@ -81,29 +81,25 @@ const registerUser = asyncHandler(async (req, res) => {
 // user login
 const loginUser = asyncHandler(async (req, res) => {
   // take details of the user
-  const { email, username, password } = req.body;
+  const { identifier, password } = req.body;
 
-  if (!username && !email) {
+  if (!identifier) {
     throw new ApiError(400, "Username or email is required.");
   }
 
   // check if any field are empty
-  if (
-    (email && [email, password].some((field) => field.trim().length === 0)) ||
-    (username &&
-      [username, password].some((field) => field.trim().length === 0))
-  ) {
+  if ([identifier, password].some((field) => field.trim().length === 0)) {
     throw new ApiError(400, "All field are must.");
   }
 
+  let email;
+  let username;
   // checking email and username format
-  if (
-    !(email
-      ? validator.isEmail(email)
-      : false || username
-      ? validator.isLowercase(username)
-      : false)
-  ) {
+  if (validator.isEmail(identifier)) {
+    email = identifier;
+  } else if (!validator.isEmail(identifier) && validator.isLowercase(identifier)) {
+    username = identifier;
+  } else {
     throw new ApiError(400, "email or username is invalid.");
   }
 
@@ -370,27 +366,23 @@ const getUserStats = asyncHandler(async (req, res) => {
       },
     },
     {
-      $project : {
-        month : {
-          $month : "$createdAt"
-        }
-      }
+      $project: {
+        month: {
+          $month: "$createdAt",
+        },
+      },
     },
     {
-      $group : {
-        _id : "$month",
-        total : {$sum : 1}
-      }
-    }
+      $group: {
+        _id: "$month",
+        total: { $sum: 1 },
+      },
+    },
   ]);
 
-  return res.status(200).json(
-    new ApiResponse(
-      200,
-      data,
-      "User stats successfully fetched."
-    )
-  )
+  return res
+    .status(200)
+    .json(new ApiResponse(200, data, "User stats successfully fetched."));
 });
 
 export {
