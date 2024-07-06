@@ -5,7 +5,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from "react-router-dom";
-import { user } from "../App";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../redux/slices/authSlice";
 
@@ -90,7 +89,7 @@ const Button = styled.button`
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useSelector((state) => state.auth);
   // console.log(user, isAuthenticated);
 
   const dispatch = useDispatch();

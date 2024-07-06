@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { mobile, medium } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { publicRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../redux/slices/authSlice";
 

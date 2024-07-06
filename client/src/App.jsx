@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import { useSelector } from "react-redux";
 
 const App = () => {
-  const {user, isAuthenticated} = useSelector((state)=> state.auth)
+  const {isAuthenticated} = useSelector((state)=> state.auth)
   return (
     <Router>
       <Routes>
