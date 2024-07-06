@@ -42,7 +42,7 @@ const Products = ({ category, filters, sort }) => {
       const link = checkCategory(category);
       // console.log(link)
       const response = await publicRequest.get(link);
-      console.log(response.data.data);
+      // console.log(response.data.data);
       setProducts(response.data.data);
     };
     getProducts();
@@ -51,7 +51,7 @@ const Products = ({ category, filters, sort }) => {
   useEffect(() => {
     const getFilteredProducts = async () => {
       try {
-        console.log(filters);
+        // console.log(filters);
         if (filters) {
           let tempProducts = products;
 
