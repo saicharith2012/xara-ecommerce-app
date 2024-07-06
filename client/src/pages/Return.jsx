@@ -2,6 +2,11 @@ import styled from "styled-components";
 import { mobile, medium } from "../responsive";
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import { userRequest } from "../requestMethods";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../redux/slices/cartSlice";
+
 
 const Container = styled.div`
   text-align: center;
@@ -39,38 +44,45 @@ export const Return = () => {
   const [status, setStatus] = useState(null);
   const [customerEmail, setCustomerEmail] = useState("");
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    dispatch(clearCart())
+
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const sessionId = urlParams.get("session_id");
+    const fetchSessionData = async () => {
+      try {
+        const response = await userRequest.get(
+          `http://localhost:4000/api/v1/payment/session-status?sessionId=${sessionId}`
+        );
+        setStatus(response.data.status)
+        setCustomerEmail(response.data.customer_email)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchSessionData();
+  }, [dispatch]);
 
-    fetch(`http://localhost:4000/api/v1/payment/session-status?sessionId=${sessionId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setStatus(data.status);
-        setCustomerEmail(data.customer_email);
-      });
-  }, []);
-
-  if (status === 'open') {
-    return (
-      <Navigate to="/checkout" />
-    )
+  if (status === "open") {
+    return <Navigate to="/checkout" />;
   }
 
-  if (status === 'complete') {
-
+  if (status === "complete") {
     return (
       <section id="success">
         <Container>
+          <Navbar />
           <Logo>elegancé</Logo>
           <SuccessMessage>SUCCESSFUL</SuccessMessage>
           <Message>
             Your order is being placed... Thanks for shopping with us.
           </Message>
           <Message>
-            A confirmation email will be sent to <b>{customerEmail}</b>. If you have
-            any questions, please email at 
+            A confirmation email will be sent to <b>{customerEmail}</b>. If you
+            have any questions, please email at
             <a href="mailto:orders@example.com"> orders@elegance.com</a>.
           </Message>
         </Container>
@@ -79,5 +91,4 @@ export const Return = () => {
   }
 
   return null;
-
 };

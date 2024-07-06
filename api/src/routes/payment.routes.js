@@ -5,6 +5,6 @@ import { verifyJWT } from "../middleware/auth.middlware.js";
 const router = Router();
 
 router.route("/create-checkout-session").post(verifyJWT, createCheckoutSession);
-router.route("/session-status").get(sessionStatus);
+router.route("/session-status").get(verifyJWT, sessionStatus);
 
 export default router;
