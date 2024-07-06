@@ -69,9 +69,9 @@ export const Return = () => {
             Your order is being placed... Thanks for shopping with us.
           </Message>
           <Message>
-            A confirmation email will be sent to {customerEmail}. If you have
-            any questions, please email
-            <a href="mailto:orders@example.com">orders@elegance.com</a>.
+            A confirmation email will be sent to <b>{customerEmail}</b>. If you have
+            any questions, please email at 
+            <a href="mailto:orders@example.com"> orders@elegance.com</a>.
           </Message>
         </Container>
       </section>
