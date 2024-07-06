@@ -87,7 +87,7 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
 const sessionStatus = asyncHandler(async (req, res) => {
   const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
   const session = await stripe.checkout.sessions.retrieve(req.query.sessionId);
-  console.log(session.status);
+  // console.log(session.status);
   return res.send({
     status: session.status,
     customer_email: session.customer_details.email,
