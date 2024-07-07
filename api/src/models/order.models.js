@@ -2,8 +2,9 @@ import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema(
   {
-    userId: {
-      type: String,
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
     products: {
@@ -23,18 +24,20 @@ const orderSchema = new mongoose.Schema(
       ],
     },
     amount: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true,
     },
     address: {
-        type: Object,
-        required: true,
+      type: String,
     },
     status: {
-        type: String,
-        default: "pending",
-        enum: ["pending", "cancelled", "success"]
-    }
+      type: String,
+      default: "pending",
+      enum: ["pending", "cancelled", "success"],
+    },
+    paymentId: {
+      type: String,
+    },
   },
   {
     timestamps: true,
