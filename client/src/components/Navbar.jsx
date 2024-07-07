@@ -7,6 +7,7 @@ import { mobile } from "../responsive";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../redux/slices/authSlice";
+import { clearCart } from "../redux/slices/cartSlice";
 
 const Container = styled.div`
   height: 60px;
@@ -105,6 +106,7 @@ const Navbar = () => {
         .then((response) => {
           console.log(response.message);
         });
+      dispatch(clearCart());
       navigate("/");
       console.log("logged out successfully.");
     } catch (error) {
