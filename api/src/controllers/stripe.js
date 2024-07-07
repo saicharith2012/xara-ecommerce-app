@@ -16,6 +16,8 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
 
     const products = req.body.products;
 
+    const amount = req.body.total;
+
     if (!products) {
       return res.status(400).json({ error: "Cart is empty." });
     }
@@ -46,7 +48,7 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
       },
       quantity: product.productQuantity,
     }));
-    console.log(lineItems)
+    // console.log(lineItems);
 
     // creating session
     const session = await stripe.checkout.sessions.create({
@@ -58,26 +60,26 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
         allowed_countries: ["IN"],
       },
       success_url: `${YOUR_DOMAIN}/return?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${YOUR_DOMAIN}/cancel`,
+      cancel_url: `${YOUR_DOMAIN}/cart`,
       customer: customer,
       metadata: { userId: userId.toString() },
     });
 
     // creating a pending order
-    Order.create({
-      products: products,
+    const newOrder = Order.create({
+      products: products.map((product) =>( {
+        product: product._id,
+        quantity: product.productQuantity
+      })),
       user: userId,
       status: "pending",
+      amount: amount,
     });
 
     res
       .status(200)
       .json(
-        new ApiResponse(
-          200,
-          { sessionId: session.id },
-          "Payment Successful."
-        )
+        new ApiResponse(200, { sessionId: session.id }, "Payment Successful.")
       );
   } catch (error) {
     res.status(500).json({ error: error.message });
