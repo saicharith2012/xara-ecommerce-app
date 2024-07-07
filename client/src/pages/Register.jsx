@@ -85,7 +85,7 @@ const Button = styled.button`
 
 const ErrorMessage = styled.div`
   padding: 12px 12px 12px 0px;
-`
+`;
 
 const Register = () => {
   const [firstname, setFirstname] = useState("");
@@ -96,7 +96,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -106,17 +106,25 @@ const Register = () => {
     }
 
     try {
-      const response = await publicRequest.post("users/register",{
-        firstname, lastname, username, email, password
-      }, {
-        withCredentials: true
-      })
+      const response = await publicRequest.post(
+        "users/register",
+        {
+          firstname,
+          lastname,
+          username,
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
 
-      console.log(response)
+      console.log(response);
 
-      navigate("/login")
+      navigate("/login");
     } catch (error) {
-      setErrorMessage("")
+      setErrorMessage("");
     }
   };
 
