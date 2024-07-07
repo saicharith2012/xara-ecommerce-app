@@ -19,11 +19,15 @@ app.use(
 // to parse the incoming json data from the requests
 // also limiting the max-size of the payload
 // to prevent massive requests that could cause denial of service attacks.
-app.use(
-  express.json({
-    limit: "16kb",
-  })
-);
+app.use((req, res, next) => {
+  if (req.originalUrl.includes("/payment/webhook")) {
+    next();
+  } else {
+    express.json({
+      limit: "16kb",
+    })(req, res, next);
+  }
+});
 
 // parses incoming requests the contain url-encoded form data (mostly strings)
 // extended set to true to handle complex objects and arrays nested in the form data.
