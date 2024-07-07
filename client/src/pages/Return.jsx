@@ -55,7 +55,7 @@ export const Return = () => {
     const fetchSessionData = async () => {
       try {
         const response = await userRequest.get(
-          `http://localhost:4000/api/v1/payment/session-status?sessionId=${sessionId}`
+          `payment/session-status?sessionId=${sessionId}`
         );
         setStatus(response.data.status)
         setCustomerEmail(response.data.customer_email)
