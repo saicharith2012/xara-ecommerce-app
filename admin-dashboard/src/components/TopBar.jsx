@@ -2,20 +2,20 @@ import styled from "styled-components";
 import { NotificationsNone, Language, Settings } from "@mui/icons-material";
 
 const Container = styled.div`
-  height: 60px;
+  height: 70px;
   width: 100%;
   background-color: white;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 999;
 `;
 
 const TopBarWrapper = styled.div`
   display: flex;
   height: 100%;
-  padding: 0px 20px;
+  padding: 0px 30px;
   align-items: center;
   justify-content: space-between;
 `;
