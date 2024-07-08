@@ -67,7 +67,7 @@ const Center = styled.div`
 
 const Logo = styled.h1`
   font-weight: bold;
-  ${mobile({ fontSize: "24px", paddingLeft: "10px" })}
+  ${mobile({ fontSize: "26px", paddingLeft: "10px" })}
 `;
 const Right = styled.div`
   flex: 1;

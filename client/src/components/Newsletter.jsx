@@ -17,7 +17,7 @@ ${mobile({height: "40vh"})}
 const Title = styled.h1`
 font-size: 70px;
 margin-bottom: 20px;
-${mobile({fontSize: "50px"})}
+${mobile({fontSize: "40px"})}
 
 `
 
@@ -36,7 +36,7 @@ background-color: white;
 display: flex;
 justify-content: space-between;
 border: 1px solid lightgray;
-${mobile({width: "70%", height:"25px", justifyContent:"center"})}
+${mobile({width: "85%", height:"25px", justifyContent:"center"})}
 
 `
 const Input = styled.input`
