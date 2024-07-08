@@ -3,6 +3,7 @@ import { mobile, medium } from "../responsive";
 import { useState } from "react";
 import { publicRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
@@ -131,7 +132,9 @@ const Register = () => {
   return (
     <Container>
       <Wrapper>
-        <Heading>élegance</Heading>
+        <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+          <Heading>élegance</Heading>
+        </Link>
         <Title>CREATE ACCOUNT</Title>
         <Form onSubmit={handleSubmit}>
           <Input

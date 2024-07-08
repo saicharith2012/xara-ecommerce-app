@@ -79,13 +79,17 @@ const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
   margin-left: 25px;
-  ${mobile({ fontSize: "12px", marginLeft: "10px" })}
-`;
-
-const Button = styled.button`
-  border: none;
+  border: 1px solid white;
+  padding: 10px;
+  border-radius: 10px;
   background-color: white;
-  padding: 0px;
+
+
+  &:hover,
+  &:active {
+    background-color: lavender;
+  }
+  ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
 const Navbar = () => {
@@ -147,11 +151,10 @@ const Navbar = () => {
               </Link>
             </>
           ) : (
-            <Button onClick={handleLogout}>
-              <MenuItem>SIGN OUT</MenuItem>
-            </Button>
+            
+              <MenuItem onClick={handleLogout}>SIGN OUT</MenuItem>
           )}
-          <Link to="/cart">
+          <Link to="/cart" style={{color: "black"}}>
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
                 <ShoppingCartOutlinedIcon />
