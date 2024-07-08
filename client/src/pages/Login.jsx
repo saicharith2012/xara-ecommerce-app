@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../redux/slices/authSlice";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
@@ -22,7 +23,7 @@ const Container = styled.div`
 `;
 
 const Heading = styled.div`
-  padding: 0px 0px 40px 0px;
+  margin: 0px 0px 40px 0px;
   width: 100%;
   font-size: 54px;
   font-weight: 700;
@@ -77,10 +78,10 @@ const Button = styled.button`
   margin: 20px 0px;
 `;
 
-const Link = styled.a`
+const LinkDiv = styled.div`
   margin: 0px 0px 8px 0px;
   font-size: 13px;
-  text-decoration: underline;
+  color: black;
   cursor: pointer;
 `;
 
@@ -124,7 +125,11 @@ const Login = () => {
   return (
     <Container>
       <Wrapper>
-        <Heading>élegance</Heading>
+        <Link to="/" style={{textDecoration: "none", color: "black"}}>
+          <LinkDiv>
+            <Heading>élegance</Heading>
+          </LinkDiv>
+        </Link>
         <Title>SIGN IN</Title>
         <Form onSubmit={handleSubmit}>
           <Input
@@ -142,8 +147,15 @@ const Login = () => {
             required
           />
           <Button>LOGIN</Button>
-          <Link>DON'T REMEMBER YOUR PASSWORD?</Link>
-          <Link>CREATE A NEW ACCOUNT</Link>
+          <Link>
+            <LinkDiv>DON'T REMEMBER YOUR PASSWORD?</LinkDiv>
+          </Link>
+
+          <Link to="/register">
+            {" "}
+            <LinkDiv>CREATE A NEW ACCOUNT </LinkDiv>
+          </Link>
+
           {errorMessage && <div>{errorMessage}</div>}
         </Form>
       </Wrapper>
