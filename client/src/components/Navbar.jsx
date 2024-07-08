@@ -17,11 +17,11 @@ const Container = styled.div`
   left: 0;
   right: 0;
   z-index: 100;
-  ${mobile({ height: "50px" })}
+  ${mobile({ height: "60px" })}
 `;
 
 const Wrapper = styled.div`
-  padding: 10px 20px;
+  padding: 7px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -32,6 +32,7 @@ const Left = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
+  ${mobile({display: "none"})}
 `;
 
 const Language = styled.span`
@@ -61,35 +62,34 @@ const Input = styled.input`
 const Center = styled.div`
   flex: 1;
   text-align: center;
+  ${mobile({flex: 2})}
 `;
 
 const Logo = styled.h1`
   font-weight: bold;
-  ${mobile({ fontSize: "24px" })}
+  ${mobile({ fontSize: "24px", paddingLeft: "10px" })}
 `;
 const Right = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  ${mobile({ flex: 2, justifyContent: "center" })}
+  ${mobile({flex:3, justifyContent: "center" })}
 `;
 
 const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
   margin-left: 25px;
-  border: 1px solid white;
   padding: 10px;
   border-radius: 10px;
-  background-color: white;
-
+  background-color: none;
 
   &:hover,
   &:active {
     background-color: lavender;
   }
-  ${mobile({ fontSize: "12px", marginLeft: "10px" })}
+  ${mobile({ fontSize: "12px", marginLeft: "0px" })}
 `;
 
 const Navbar = () => {
@@ -151,10 +151,9 @@ const Navbar = () => {
               </Link>
             </>
           ) : (
-            
-              <MenuItem onClick={handleLogout}>SIGN OUT</MenuItem>
+            <MenuItem onClick={handleLogout}>SIGN OUT</MenuItem>
           )}
-          <Link to="/cart" style={{color: "black"}}>
+          <Link to="/cart" style={{ color: "black" }}>
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
                 <ShoppingCartOutlinedIcon />

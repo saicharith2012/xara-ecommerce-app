@@ -6,6 +6,17 @@ import Categories from "../components/Categories";
 import Products from "../components/Products";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
+import styled from "styled-components";
+import { mobile } from "../responsive";
+
+const ProductsTitle = styled.h1`
+  text-align: center;
+  font-size: 70px;
+  font-weight: 1000;
+  padding: 30px 0px 50px 0px;
+
+  ${mobile({fontSize: "28px", padding: "30px 0px 0px 0px"})}
+`;
 
 const Home = () => {
   return (
@@ -14,17 +25,7 @@ const Home = () => {
       <Navbar />
       <Slider />
       <Categories />
-      <div
-        className="products-heading"
-        style={{
-          textAlign: "center",
-          fontSize: "70px",
-          fontWeight: "1000",
-          padding: "30px 0px 50px 0px",
-        }}
-      >
-        <p>LATEST PRODUCTS.</p>
-      </div>
+      <ProductsTitle>LATEST PRODUCTS.</ProductsTitle>
       <Products category={"new"} filters={[]} />
       <Newsletter />
       <Footer />

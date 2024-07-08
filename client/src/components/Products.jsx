@@ -11,7 +11,7 @@ const Container = styled.div`
   grid-template-columns: repeat(auto-fill, 295px);
   gap: 10px;
   ${mobile({
-    gridTemplateColumns: "repeat(auto-fill, 160px)",
+    gridTemplateColumns: "repeat(auto-fill, 172px)",
   })}
 `;
 
