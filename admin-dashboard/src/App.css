@@ -1,0 +1,10 @@
+.App {
+    padding-top: 70px;
+    padding-left: 300px;
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px){
+    .App {
+        padding-left: 220px;
+    }
+}`
