@@ -1,14 +1,30 @@
 import styled from "styled-components";
-import { AttachMoney, BarChart, ChatBubbleOutline, DynamicFeed, LineStyle, MailOutline, PermIdentity, Report, Storefront, Timeline, TrendingUp, WorkOutline } from "@mui/icons-material";
+import {
+  AttachMoney,
+  BarChart,
+  ChatBubbleOutline,
+  DynamicFeed,
+  LineStyle,
+  MailOutline,
+  PermIdentity,
+  Report,
+  Storefront,
+  Timeline,
+  TrendingUp,
+  WorkOutline,
+} from "@mui/icons-material";
+import { medium } from "../response.js";
 
 const Container = styled.div`
-  position: fixed; 
+  position: fixed;
   top: 70px;
   left: 0px;
   height: calc(100vh - 70px);
   width: 300px;
   background-color: rgb(251, 251, 255);
   z-index: 100;
+
+  ${medium({ width: "220px" })}
 `;
 
 const Wrapper = styled.div`
@@ -23,7 +39,7 @@ const SideBarMenu = styled.div`
 const SideBarTitle = styled.h3`
   margin-bottom: 5px;
   font-size: 15px;
-  color: rgb(54, 69, 79)
+  color: rgb(54, 69, 79);
 `;
 
 const SideBarList = styled.ul`
@@ -92,7 +108,7 @@ export default function SideBar() {
             </SideBarListItem>{" "}
             <SideBarListItem>
               <ListItemIcon>
-                <Storefront/>
+                <Storefront />
               </ListItemIcon>
               <ListItemTitle>Products</ListItemTitle>
             </SideBarListItem>{" "}
