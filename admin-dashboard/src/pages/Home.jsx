@@ -7,6 +7,7 @@ import WidgetLg from "../components/WidgetLg";
 
 const Container = styled.div`
 width: calc(100vw - 300px);
+padding: 30px;
 
 `;
 
@@ -15,7 +16,7 @@ const Wrapper = styled.div`
 
 const HomeWidgets = styled.div`
   display: flex;
-  margin: 20px;
+  margin-top: 30px;
 `;
 
 export default function Home() {

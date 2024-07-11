@@ -5,7 +5,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  padding: 30px;
+  padding: 10px 30px;
 `;
 
 const Title = styled.h2`
@@ -35,6 +35,10 @@ const FormItemInput = styled.input`
   font-size: 16px;
   border: none;
   border-bottom: 1px solid black;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const NewUserGender = styled.div`
@@ -144,7 +148,6 @@ export default function NewUser() {
             </NewUserSelect>
           </FormItem>
           <FormItem>
-
             <CreateUser>Create</CreateUser>
           </FormItem>
         </NewUserForm>

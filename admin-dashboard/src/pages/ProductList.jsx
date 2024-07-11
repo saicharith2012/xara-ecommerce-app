@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { DataGrid } from "@mui/x-data-grid";
 import { DeleteOutline } from "@mui/icons-material";
-import { userRows } from "../dummyData";
+import { productRows } from "../dummyData";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -20,25 +20,12 @@ const Table = styled.div`
   height: 90%;
 `;
 
-const User = styled.div`
+const ProductActions = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const UserImage = styled.img`
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 10px;
-`;
-
-const UserActions = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const EditUser = styled.button`
+const EditProduct = styled.button`
   padding: 5px 10px;
   border: none;
   border-radius: 10px;
@@ -55,31 +42,43 @@ const DeleteIconContainer = styled.div`
   margin-left: 25px;
 `;
 
+const Product = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
+const ProductImage = styled.img`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+  object-position: top;
+`;
 
-export default function UserList() {
-  const [data, setData] = useState(userRows);
+export default function ProductList() {
+  const [data, setData] = useState(productRows);
 
   const handleDelete = (id) => {
-    setData(data.filter(item => item.id !== id))
-  }
+    setData(data.filter((item) => item.id !== id));
+  };
 
   const columns = [
     { field: "id", headerName: "ID", width: 100 },
     {
-      field: "user",
-      headerName: "User",
+      field: "product",
+      headerName: "Product",
       width: 200,
       renderCell: (params) => {
         return (
-          <User>
-            <UserImage src={params.row.avatar} alt="" />
-            {params.row.username}
-          </User>
+          <Product>
+            <ProductImage src={params.row.image} alt="" />
+            {params.row.name}
+          </Product>
         );
       },
     },
-    { field: "email", headerName: "Email", width: 300 },
+    { field: "stock", headerName: "Stock", width: 140 },
     {
       field: "status",
       headerName: "Status",
@@ -87,11 +86,10 @@ export default function UserList() {
       sortable: false,
     },
     {
-      field: "transaction",
-      headerName: "Transaction volume",
-      description: "This column has a value getter and is not sortable.",
+      field: "price",
+      headerName: "Price",
       sortable: false,
-      width: 250,
+      width: 200,
     },
     {
       field: "action",
@@ -99,14 +97,14 @@ export default function UserList() {
       width: 300,
       renderCell: (params) => {
         return (
-          <UserActions>
-            <Link to={"/user/" + params.row.id}>
-              <EditUser>Edit</EditUser>
+          <ProductActions>
+            <Link to={"/product/" + params.row.id}>
+              <EditProduct>Edit</EditProduct>
             </Link>
             <DeleteIconContainer>
-              <DeleteOutline onClick={() => handleDelete(params.row.id)}/>
+              <DeleteOutline onClick={() => handleDelete(params.row.id)} />
             </DeleteIconContainer>
-          </UserActions>
+          </ProductActions>
         );
       },
     },
@@ -114,19 +112,20 @@ export default function UserList() {
 
   return (
     <Container>
-      <Title>Users</Title>
+      <Title>Products</Title>
       <Table>
         <DataGrid
           rows={data}
           disableRowSelectionOnClick
           columns={columns}
+
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 14},
+              paginationModel: { page: 0, pageSize: 14 },
             },
           }}
           checkboxSelection
-          pageSizeOptions={[5,10,14]}
+          pageSizeOptions={[5, 10, 14]}
         />
       </Table>
     </Container>

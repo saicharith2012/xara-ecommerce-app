@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  padding: 30px;
+  padding: 10px 30px;
 `;
 
 const TitleContainer = styled.div`
