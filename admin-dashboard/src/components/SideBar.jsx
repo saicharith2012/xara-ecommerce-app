@@ -14,6 +14,7 @@ import {
   WorkOutline,
 } from "@mui/icons-material";
 import { medium } from "../response.js";
+import { Link, useLocation } from "react-router-dom";
 
 const Container = styled.div`
   position: fixed;
@@ -49,11 +50,14 @@ const SideBarList = styled.ul`
 
 const SideBarListItem = styled.li`
   padding: 5px 10px;
+  margin-bottom: 5px;
   cursor: pointer;
   display: flex;
   align-items: center;
   font-size: 16px;
   border-radius: 10px;
+  background-color: ${({ isactive }) =>
+    isactive ? "rgb(240, 240, 255)" : "transparent"};
 
   &:hover,
   &:active {
@@ -71,25 +75,29 @@ const ListItemTitle = styled.p`
 `;
 
 export default function SideBar() {
+  const location = useLocation();
+
   return (
     <Container>
       <Wrapper>
         <SideBarMenu>
           <SideBarTitle>Dashboard</SideBarTitle>
           <SideBarList>
-            <SideBarListItem>
-              <ListItemIcon>
-                <LineStyle />
-              </ListItemIcon>
-              <ListItemTitle>Home</ListItemTitle>
-            </SideBarListItem>{" "}
-            <SideBarListItem>
+            <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+              <SideBarListItem isactive={location.pathname === "/"}>
+                <ListItemIcon>
+                  <LineStyle />
+                </ListItemIcon>
+                <ListItemTitle>Home</ListItemTitle>
+              </SideBarListItem>
+            </Link>
+            <SideBarListItem isactive={location.pathname === "/analytics"}>
               <ListItemIcon>
                 <Timeline />
               </ListItemIcon>
               <ListItemTitle>Analytics</ListItemTitle>
-            </SideBarListItem>{" "}
-            <SideBarListItem>
+            </SideBarListItem>
+            <SideBarListItem isactive={location.pathname === "/sales"}>
               <ListItemIcon>
                 <TrendingUp />
               </ListItemIcon>
@@ -100,25 +108,36 @@ export default function SideBar() {
         <SideBarMenu>
           <SideBarTitle>Quick Menu</SideBarTitle>
           <SideBarList>
-            <SideBarListItem>
-              <ListItemIcon>
-                <PermIdentity />
-              </ListItemIcon>
-              <ListItemTitle>Users</ListItemTitle>
-            </SideBarListItem>{" "}
-            <SideBarListItem>
-              <ListItemIcon>
-                <Storefront />
-              </ListItemIcon>
-              <ListItemTitle>Products</ListItemTitle>
-            </SideBarListItem>{" "}
-            <SideBarListItem>
+            <Link
+              to="/users"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <SideBarListItem isactive={location.pathname === "/users"}>
+                <ListItemIcon>
+                  <PermIdentity />
+                </ListItemIcon>
+                <ListItemTitle>Users</ListItemTitle>
+              </SideBarListItem>
+            </Link>
+
+            <Link
+              to="/products"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <SideBarListItem isactive={location.pathname === "/products"}>
+                <ListItemIcon>
+                  <Storefront />
+                </ListItemIcon>
+                <ListItemTitle>Products</ListItemTitle>
+              </SideBarListItem>
+            </Link>
+            <SideBarListItem isactive={location.pathname === "/transactions"}>
               <ListItemIcon>
                 <AttachMoney />
               </ListItemIcon>
               <ListItemTitle>Transactions</ListItemTitle>
-            </SideBarListItem>{" "}
-            <SideBarListItem>
+            </SideBarListItem>
+            <SideBarListItem isactive={location.pathname === "/reports"}>
               <ListItemIcon>
                 <BarChart />
               </ListItemIcon>
@@ -129,19 +148,19 @@ export default function SideBar() {
         <SideBarMenu>
           <SideBarTitle>Notifications</SideBarTitle>
           <SideBarList>
-            <SideBarListItem>
+            <SideBarListItem isactive={location.pathname === "/mail"}>
               <ListItemIcon>
                 <MailOutline />
               </ListItemIcon>
               <ListItemTitle>Mail</ListItemTitle>
-            </SideBarListItem>{" "}
-            <SideBarListItem>
+            </SideBarListItem>
+            <SideBarListItem isactive={location.pathname === "/feedback"}>
               <ListItemIcon>
                 <DynamicFeed />
               </ListItemIcon>
               <ListItemTitle>Feedback</ListItemTitle>
-            </SideBarListItem>{" "}
-            <SideBarListItem>
+            </SideBarListItem>
+            <SideBarListItem isactive={location.pathname === "/messages"}>
               <ListItemIcon>
                 <ChatBubbleOutline />
               </ListItemIcon>
@@ -152,19 +171,21 @@ export default function SideBar() {
         <SideBarMenu>
           <SideBarTitle>Staff</SideBarTitle>
           <SideBarList>
-            <SideBarListItem>
+            <SideBarListItem isactive={location.pathname === "/manage"}>
               <ListItemIcon>
                 <WorkOutline />
               </ListItemIcon>
               <ListItemTitle>Manage</ListItemTitle>
-            </SideBarListItem>{" "}
-            <SideBarListItem>
+            </SideBarListItem>
+            <SideBarListItem
+              isactive={location.pathname === "/staff-analytics"}
+            >
               <ListItemIcon>
                 <Timeline />
               </ListItemIcon>
               <ListItemTitle>Analytics</ListItemTitle>
-            </SideBarListItem>{" "}
-            <SideBarListItem>
+            </SideBarListItem>
+            <SideBarListItem isactive={location.pathname === "/staff-reports"}>
               <ListItemIcon>
                 <Report />
               </ListItemIcon>
