@@ -5,6 +5,7 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 30px;
 `;
 
 const FeaturedItem = styled.div`

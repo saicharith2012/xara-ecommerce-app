@@ -12,7 +12,6 @@ import {
 
 const Container = styled.div`
   padding: 30px;
-  margin: 20px;
   -webkit-box-shadow: -2px 3px 18px -5px rgba(0, 0, 0, 0.16);
   -moz-box-shadow: -2px 3px 18px -5px rgba(0, 0, 0, 0.16);
   box-shadow: -2px 3px 15px -5px rgba(0, 0, 0, 0.1);
