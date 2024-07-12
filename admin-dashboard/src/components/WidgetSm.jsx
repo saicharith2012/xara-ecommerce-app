@@ -5,7 +5,7 @@ import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
-  flex: 1;
+  flex: 0.75;
   padding: 30px;
   -webkit-box-shadow: -2px 3px 18px -5px rgba(0, 0, 0, 0.16);
   -moz-box-shadow: -2px 3px 18px -5px rgba(0, 0, 0, 0.16);
@@ -80,7 +80,7 @@ export default function WidgetSm() {
     const getUsers = async () => {
       const response = await userRequest("/users/all-users?new=true");
       setUsers(response.data.data);
-      console.log(response.data.data);
+      // console.log(response.data.data);
     };
 
     getUsers();
