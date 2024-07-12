@@ -378,7 +378,7 @@ const getUserStats = asyncHandler(async (req, res) => {
         total: { $sum: 1 },
       },
     },
-  ]);
+  ]).sort({_id: 1})
 
   return res
     .status(200)
