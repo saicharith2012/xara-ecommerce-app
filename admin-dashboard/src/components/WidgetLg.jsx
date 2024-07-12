@@ -89,9 +89,9 @@ export default function WidgetLg() {
   const [orders, setOrders] = useState([]);
   useEffect(() => {
     const getUsers = async () => {
-      const response = await userRequest("/orders/all-orders?new=true");
+      const response = await userRequest.get("/orders/all-orders?new=true");
       setOrders(response.data.data);
-      console.log(response.data.data[0]);
+      // console.log(response.data.data[0]);
     };
 
     getUsers();

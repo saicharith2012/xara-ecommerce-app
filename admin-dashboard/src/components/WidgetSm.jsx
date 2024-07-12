@@ -78,7 +78,7 @@ export default function WidgetSm() {
   const navigate = useNavigate();
   useEffect(() => {
     const getUsers = async () => {
-      const response = await userRequest("/users/all-users?new=true");
+      const response = await userRequest.get("/users/all-users?new=true");
       setUsers(response.data.data);
       // console.log(response.data.data);
     };
