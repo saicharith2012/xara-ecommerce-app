@@ -7,7 +7,6 @@ import { userRequest } from "../requestMethods";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../redux/slices/cartSlice";
 
-
 const Container = styled.div`
   text-align: center;
   display: flex;
@@ -15,12 +14,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-`;
-
-const Logo = styled.h1`
-  font-weight: bold;
-  margin: 20px 0px;
-  ${mobile({ fontSize: "24px" })}
 `;
 
 const SuccessMessage = styled.div`
@@ -40,14 +33,64 @@ const Message = styled.div`
   font-size: 18px;
 `;
 
+const OrderedProducts = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+
+  ${mobile({
+    flexDirection: "column",
+  })}
+`;
+
+const OrderedProductsTitle = styled.h2`
+  margin: 50px 0px 10px;
+`;
+
+const Product = styled.div`
+  display: flex;
+  margin: 10px;
+  border: 2px solid black;
+  padding: 10px;
+`;
+
+const ProductImage = styled.img`
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  flex: 1;
+`;
+
+const ProductInfo = styled.div`
+  flex: 2.5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`;
+
+const ProductDataItem = styled.div`
+  display: flex;
+`;
+
+const ProductDataItemHeading = styled.b`
+  margin: 0px 10px;
+  flex: 1;
+  text-align: start;
+`;
+
+const ProductDataItemValue = styled.div`
+  flex: 1;
+  text-align: start;
+`;
+
 export const Return = () => {
   const [status, setStatus] = useState(null);
   const [customerEmail, setCustomerEmail] = useState("");
+  const [products, setProducts] = useState([]);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(clearCart())
+    dispatch(clearCart());
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -57,8 +100,10 @@ export const Return = () => {
         const response = await userRequest.get(
           `payment/session-status?sessionId=${sessionId}`
         );
-        setStatus(response.data.status)
-        setCustomerEmail(response.data.customer_email)
+        console.log(response);
+        setStatus(response.data.status);
+        setCustomerEmail(response.data.customer_email);
+        setProducts(response.data?.lineItems);
       } catch (error) {
         console.log(error);
       }
@@ -75,7 +120,6 @@ export const Return = () => {
       <section id="success">
         <Container>
           <Navbar />
-          <Logo>elegancé</Logo>
           <SuccessMessage>SUCCESSFUL</SuccessMessage>
           <Message>
             Your order is being placed... Thanks for shopping with us.
@@ -85,6 +129,39 @@ export const Return = () => {
             have any questions, please email at
             <a href="mailto:orders@example.com"> orders@elegance.com</a>.
           </Message>
+
+          <OrderedProductsTitle>Products Ordered</OrderedProductsTitle>
+          <OrderedProducts>
+            {products.map((product) => {
+              return (
+                <Product key={product.id}>
+                  <ProductImage src={product.productImages[0]} />
+                  <ProductInfo>
+                    <ProductDataItem>
+                      <ProductDataItemHeading>Product: </ProductDataItemHeading>
+                      <ProductDataItemValue>
+                        {product.description}
+                      </ProductDataItemValue>
+                    </ProductDataItem>
+                    <ProductDataItem>
+                      <ProductDataItemHeading>Cost: </ProductDataItemHeading>
+                      <ProductDataItemValue>
+                        Rs. {product.price.unit_amount / 100}
+                      </ProductDataItemValue>
+                    </ProductDataItem>
+                    <ProductDataItem>
+                      <ProductDataItemHeading>
+                        Quantity:{" "}
+                      </ProductDataItemHeading>
+                      <ProductDataItemValue>
+                        {product.quantity}
+                      </ProductDataItemValue>
+                    </ProductDataItem>
+                  </ProductInfo>
+                </Product>
+              );
+            })}
+          </OrderedProducts>
         </Container>
       </section>
     );

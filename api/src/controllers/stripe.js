@@ -67,9 +67,9 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
 
     // creating a pending order
     const newOrder = Order.create({
-      products: products.map((product) =>( {
+      products: products.map((product) => ({
         product: product._id,
-        quantity: product.productQuantity
+        quantity: product.productQuantity,
       })),
       user: userId,
       status: "pending",
@@ -87,13 +87,35 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
 });
 
 const sessionStatus = asyncHandler(async (req, res) => {
-  const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
-  const session = await stripe.checkout.sessions.retrieve(req.query.sessionId);
-  // console.log(session.status);
-  return res.send({
-    status: session.status,
-    customer_email: session.customer_details.email,
-  });
+  try {
+    const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+    const session = await stripe.checkout.sessions.retrieve(
+      req.query.sessionId
+    );
+
+    const lineItems = await stripe.checkout.sessions.listLineItems(
+      req.query?.sessionId,
+      { limit: 10 }
+    );
+
+    const productImages = await Promise.all(
+      lineItems.data.map(async (item) => {
+        const product = await stripe.products.retrieve(item.price.product);
+        return product.images;
+      })
+    );
+
+    return res.send({
+      status: session.status,
+      customer_email: session.customer_details.email,
+      lineItems: lineItems.data.map((item, index) => ({
+        ...item,
+        productImages: productImages[index],
+      })),
+    });
+  } catch (error) {
+    console.error(error.message);
+  }
 });
 
 export { createCheckoutSession, sessionStatus };
