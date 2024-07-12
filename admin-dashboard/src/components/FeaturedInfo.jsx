@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
+import { useEffect, useState } from "react";
+import { userRequest } from "../requestMethods.js";
 
 const Container = styled.div`
   width: 100%;
@@ -46,27 +48,50 @@ const FeaturedMoneyArrow = styled.div`
   align-items: center;
   font-size: 15px;
   margin-left: 5px;
-  color: ${props => props.negative ? "red" : "green"}
+  color: ${(props) => (props.negative ? "red" : "green")};
 `;
 
 const FeaturedSub = styled.span`
-font-size: 15px;
-font-weight: 500;
-color: rgb(54, 69, 79);
+  font-size: 15px;
+  font-weight: 500;
+  color: rgb(54, 69, 79);
 `;
 
 export default function FeaturedInfo() {
+  const [income, setIncome] = useState([]);
+  const [perc, setPerc] = useState(0);
+
+  useEffect(() => {
+    const getIncome = async () => {
+      const res = await userRequest.get("/orders/income");
+      const data = res.data.data;
+      setIncome(data);
+      // console.log(response.data.data);
+
+      setPerc((data[1].total * 100) / data[0].total - 100);
+    };
+    getIncome();
+  }, []);
+
+  console.log(income);
+  console.log(perc);
   return (
     <Container>
       <FeaturedItem>
         <FeaturedTitle>Revenue</FeaturedTitle>
         <FeaturedMoneyContainer>
-          <FeaturedMoney>Rs. 2415</FeaturedMoney>
+          <FeaturedMoney>Rs. {income[1]?.total}</FeaturedMoney>
           <FeaturedMoneyRate>
-            -11.4{" "}
-            <FeaturedMoneyArrow negative>
-              <ArrowDownward />
-            </FeaturedMoneyArrow>
+            {Math.floor(perc * 10) / 10}%
+            {perc ? (
+              <FeaturedMoneyArrow negative>
+                <ArrowDownward />
+              </FeaturedMoneyArrow>
+            ) : (
+              <FeaturedMoneyArrow>
+                <ArrowUpward />
+              </FeaturedMoneyArrow>
+            )}
           </FeaturedMoneyRate>
         </FeaturedMoneyContainer>
         <FeaturedSub>Compared to last month</FeaturedSub>
