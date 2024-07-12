@@ -83,7 +83,7 @@ export default function FeaturedInfo() {
           <FeaturedMoney>Rs. {income[1]?.total}</FeaturedMoney>
           <FeaturedMoneyRate>
             {Math.floor(perc * 10) / 10}%
-            {perc ? (
+            {perc < 0 ? (
               <FeaturedMoneyArrow negative>
                 <ArrowDownward />
               </FeaturedMoneyArrow>
