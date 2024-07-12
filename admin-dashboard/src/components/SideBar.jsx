@@ -13,7 +13,7 @@ import {
   TrendingUp,
   WorkOutline,
 } from "@mui/icons-material";
-import { medium } from "../response.js";
+import { medium } from "../responsive.js";
 import { Link, useLocation } from "react-router-dom";
 
 const Container = styled.div`

@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 const Container = styled.div`
-  flex: 3;
+  flex: 2;
   padding: 30px;
   -webkit-box-shadow: -2px 3px 18px -5px rgba(0, 0, 0, 0.16);
   -moz-box-shadow: -2px 3px 18px -5px rgba(0, 0, 0, 0.16);
