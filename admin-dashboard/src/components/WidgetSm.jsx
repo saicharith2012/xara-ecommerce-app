@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import { Visibility } from "@mui/icons-material";
+import { useEffect, useState } from "react";
+import { userRequest } from "../requestMethods";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   flex: 1;
@@ -25,7 +28,6 @@ const ListItem = styled.li`
   display: flex;
   margin: 20px 0px;
   align-items: center;
-  justify-content: space-between;
 `;
 
 const Image = styled.img`
@@ -33,9 +35,12 @@ const Image = styled.img`
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
+  flex: 0.4;
+  margin-right: 15px;
 `;
 
 const User = styled.div`
+  flex: 4;
   display: flex;
   flex-direction: column;
 `;
@@ -45,12 +50,14 @@ const UserName = styled.span`
   font-size: 16px;
   margin-bottom: 3px;
 `;
-const JobTitle = styled.span`
+const LastName = styled.span`
   font-weight: 400;
   font-size: 14px;
-  color: rgb(54, 69, 79);`;
+  color: rgb(54, 69, 79);
+`;
 
 const Button = styled.button`
+  flex: 1.5;
   display: flex;
   align-items: center;
   border: none;
@@ -67,75 +74,46 @@ const Icon = styled.div`
 `;
 
 export default function WidgetSm() {
+  const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const getUsers = async () => {
+      const response = await userRequest("/users/all-users?new=true");
+      setUsers(response.data.data);
+      console.log(response.data.data);
+    };
+
+    getUsers();
+  }, []);
   return (
     <Container>
       <Title>New Join Members</Title>
       <List>
-        <ListItem>
-          <Image src="https://lh3.googleusercontent.com/a/ACg8ocKwISwIbsNvvamawhzxqHmSljXnqAY9HzbLmN9kibteOG493qD0=s288-c-no" />
-          <User>
-            <UserName>Caspir Parange</UserName>
-            <JobTitle>Software Engineer</JobTitle>
-          </User>
-          <Button>
-            <Icon>
-              <Visibility />
-            </Icon>
-            Display
-          </Button>
-        </ListItem>{" "}
-        <ListItem>
-          <Image src="https://lh3.googleusercontent.com/a/ACg8ocKwISwIbsNvvamawhzxqHmSljXnqAY9HzbLmN9kibteOG493qD0=s288-c-no" />
-          <User>
-            <UserName>Caspir Parange</UserName>
-            <JobTitle>Software Engineer</JobTitle>
-          </User>
-          <Button>
-            <Icon>
-              <Visibility />
-            </Icon>
-            Display
-          </Button>
-        </ListItem>{" "}
-        <ListItem>
-          <Image src="https://lh3.googleusercontent.com/a/ACg8ocKwISwIbsNvvamawhzxqHmSljXnqAY9HzbLmN9kibteOG493qD0=s288-c-no" />
-          <User>
-            <UserName>Caspir Parange</UserName>
-            <JobTitle>Software Engineer</JobTitle>
-          </User>
-          <Button>
-            <Icon>
-              <Visibility />
-            </Icon>
-            Display
-          </Button>
-        </ListItem>{" "}
-        <ListItem>
-          <Image src="https://lh3.googleusercontent.com/a/ACg8ocKwISwIbsNvvamawhzxqHmSljXnqAY9HzbLmN9kibteOG493qD0=s288-c-no" />
-          <User>
-            <UserName>Caspir Parange</UserName>
-            <JobTitle>Software Engineer</JobTitle>
-          </User>
-          <Button>
-            <Icon>
-              <Visibility />
-            </Icon>
-            Display
-          </Button>
-        </ListItem>{" "}
-        <ListItem>
-          <Image src="https://lh3.googleusercontent.com/a/ACg8ocKwISwIbsNvvamawhzxqHmSljXnqAY9HzbLmN9kibteOG493qD0=s288-c-no" />
-          <User>
-            <UserName>Caspir Parange</UserName>
-            <JobTitle>Software Engineer</JobTitle>
-          </User>
-          <Button>
-            <Icon>
-              <Visibility />
-            </Icon>
-            Display
-          </Button>
-        </ListItem>
+        {users.map((user) => {
+          return (
+            <>
+              <ListItem key={user._id}>
+                <Image
+                  src={
+                    user.img ||
+                    "https://crowd-literature.eu/wp-content/uploads/2015/01/no-avatar.gif"
+                  }
+                />
+                <User>
+                  <UserName>{user.firstname}</UserName>
+                  <LastName>{user.username}</LastName>
+                </User>
+
+                <Button onClick={() => navigate(`/user/${user._id}`)}>
+                  <Icon>
+                    <Visibility />
+                  </Icon>
+                  Display
+                </Button>
+              </ListItem>{" "}
+            </>
+          );
+        })}
       </List>
     </Container>
   );
