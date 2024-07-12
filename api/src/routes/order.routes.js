@@ -31,7 +31,7 @@ router
   .get(verifyTokenAndAuthorization, getUserOrders);
 
 // get all orders
-router.route("/orders").get(verifyTokenAndAdmin, getAllOrders);
+router.route("/all-orders").get(verifyTokenAndAdmin, getAllOrders);
 
 // get income
 router.route("/income").get(verifyTokenAndAdmin, getIncome)

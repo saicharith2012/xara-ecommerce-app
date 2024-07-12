@@ -63,13 +63,19 @@ const getUserOrders = asyncHandler(async (req, res) => {
 
 // get all orders - admin privilege
 const getAllOrders = asyncHandler(async (req, res) => {
-  const orders = await Order.find();
+  const query = req.query?.new;
+
+  const orders = query
+    ? await Order.find().sort({ _id: -1 }).limit(4).populate("user")
+    : await Order.find().populate("user");
 
   if (!orders) {
     throw new ApiError(500, "Something went wrong while fetching the orders.");
   }
 
-  return res.status(200).json(200, orders, "Orders fetched successfully.");
+  return res
+    .status(200)
+    .json(new ApiResponse(200, orders , "Orders fetched successfully."));
 });
 
 // get income - admin privilege

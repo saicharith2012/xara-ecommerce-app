@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
+import { userRequest } from "../requestMethods";
 
 const Container = styled.div`
   flex: 2;
@@ -40,16 +42,18 @@ const Name = styled.span`
 `;
 
 const Date = styled.td`
-  font-weight: 300;
+  font-weight: 400;
 `;
 const Amount = styled.td`
-  font-weight: 300;
+  font-weight: 400;
 `;
 const Status = styled.td`
   font-weight: 300;
 `;
 
-const Address = styled.td``;
+const Address = styled.td`
+  font-weight: 400;
+`;
 
 const Button = styled.button`
   padding: 5px 7px;
@@ -60,21 +64,21 @@ const Button = styled.button`
   margin: 5px;
 
   ${(props) =>
-    props.type === "Approved" &&
+    props.type === "success" &&
     css`
       background-color: #e5faf2;
       color: #3bb077;
     `}
 
   ${(props) =>
-    props.type === "Pending" &&
+    props.type === "pending" &&
     css`
       background-color: #ebf1fe;
       color: #2a7ade;
     `}
 
 ${(props) =>
-    props.type === "Declined" &&
+    props.type === "declined" &&
     css`
       background-color: #fff0f1;
       color: #d95087;
@@ -82,6 +86,40 @@ ${(props) =>
 `;
 
 export default function WidgetLg() {
+  const [orders, setOrders] = useState([]);
+  useEffect(() => {
+    const getUsers = async () => {
+      const response = await userRequest("/orders/all-orders?new=true");
+      setOrders(response.data.data);
+      console.log(response.data.data[0]);
+    };
+
+    getUsers();
+  }, []);
+
+  function formatISODate(isoDateString) {
+    // Convert ISO 8601 string to Date object
+    const date = new window.Date(isoDateString);
+
+    // Extract components
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-indexed
+    const day = date.getDate().toString().padStart(2, "0");
+    let hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    const seconds = date.getSeconds().toString().padStart(2, "0");
+
+    // Determine AM/PM
+    const ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    const formattedHours = hours.toString().padStart(2, "0");
+
+    // Format the date and time
+    const formattedDate = `${month}/${day}/${year} ${formattedHours}:${minutes}:${seconds} ${ampm}`;
+    return formattedDate;
+  }
+
   return (
     <Container>
       <Title>Latest Transactions</Title>
@@ -93,58 +131,30 @@ export default function WidgetLg() {
           <Th>Status</Th>
           <Th>Address</Th>
         </Tr>
-        <Tr>
-          <Td>
-            <Image src="https://pbs.twimg.com/profile_images/1723501431842594816/VIOR52K3_400x400.jpg" />
-            <Name>Sai Charith</Name>
-          </Td>
 
-          <Date>2 Jun 2024</Date>
-          <Amount>Rs. 12223</Amount>
-          <Status>
-            <Button type={"Approved"}>Approved</Button>
-          </Status>
-          <Address>Telangana, India</Address>
-        </Tr>{" "}
-        <Tr>
-          <Td>
-            <Image src="https://pbs.twimg.com/profile_images/1723501431842594816/VIOR52K3_400x400.jpg" />
-            <Name>Sai Charith</Name>
-          </Td>
-
-          <Date>2 Jun 2024</Date>
-          <Amount>Rs. 12223</Amount>
-          <Status>
-            <Button type={"Declined"}>Declined</Button>
-          </Status>
-          <Address>Telangana, India</Address>
-        </Tr>{" "}
-        <Tr>
-          <Td>
-            <Image src="https://pbs.twimg.com/profile_images/1723501431842594816/VIOR52K3_400x400.jpg" />
-            <Name>Sai Charith</Name>
-          </Td>
-
-          <Date>2 Jun 2024</Date>
-          <Amount>Rs. 12223</Amount>
-          <Status>
-            <Button type={"Pending"}>Pending</Button>
-          </Status>
-          <Address>Telangana, India</Address>
-        </Tr>{" "}
-        <Tr>
-          <Td>
-            <Image src="https://pbs.twimg.com/profile_images/1723501431842594816/VIOR52K3_400x400.jpg" />
-            <Name>Sai Charith</Name>
-          </Td>
-
-          <Date>2 Jun 2024</Date>
-          <Amount>Rs. 12223</Amount>
-          <Status>
-            <Button type={"Approved"}>Approved</Button>
-          </Status>
-          <Address>Telangana, India</Address>
-        </Tr>
+        {orders?.map((order) => {
+          return (
+            <>
+              <Tr>
+                <Td>
+                  <Image
+                    src={
+                      order.user.img ||
+                      "https://crowd-literature.eu/wp-content/uploads/2015/01/no-avatar.gif"
+                    }
+                  />
+                  <Name>{order.user.username}</Name>
+                </Td>
+                <Date>{formatISODate(order.createdAt)}</Date>
+                <Amount>Rs. {order.amount}</Amount>
+                <Status>
+                  <Button type={order.status}>{order.status}</Button>
+                </Status>
+                <Address>{order.address}</Address>
+              </Tr>
+            </>
+          );
+        })}
       </Table>
     </Container>
   );
