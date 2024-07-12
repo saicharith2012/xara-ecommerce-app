@@ -27,8 +27,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    img: {
+      type: String,
+    },
     refreshToken: {
-      type: String
+      type: String,
     },
     isAdmin: {
       type: Boolean,
@@ -36,7 +39,7 @@ const userSchema = new mongoose.Schema(
     },
     stripeCustomerId: {
       type: String,
-    }
+    },
   },
   { timestamps: true }
 );
