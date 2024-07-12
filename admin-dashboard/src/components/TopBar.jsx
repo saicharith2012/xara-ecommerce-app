@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { NotificationsNone, Language, Settings } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   height: 70px;
@@ -66,7 +67,9 @@ export default function TopBar() {
     <Container>
       <TopBarWrapper>
         <TopLeft>
-          <Logo>elegancéAdmin</Logo>
+          <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
+            <Logo>elegancéAdmin</Logo>
+          </Link>
         </TopLeft>
         <TopRight>
           <TopBarIconContainer>
