@@ -59,22 +59,36 @@ const FeaturedSub = styled.span`
 
 export default function FeaturedInfo() {
   const [income, setIncome] = useState([]);
-  const [perc, setPerc] = useState(0);
+  const [incomePerc, setIncomePerc] = useState(0);
+  const [orders, setOrders] = useState([]);
+  const [orderPerc, setOrderPerc] = useState(0);
 
   useEffect(() => {
     const getIncome = async () => {
       const res = await userRequest.get("/orders/income");
       const data = res.data.data;
       setIncome(data);
-      // console.log(response.data.data);
+      // console.log(res.data.data);
 
-      setPerc((data[1].total * 100) / data[0].total - 100);
+      setIncomePerc((data[1].total * 100) / data[0].total - 100);
     };
     getIncome();
+
+    const getOrderStats = async () => {
+      const res = await userRequest.get("/orders/order-stats");
+      // console.log(res.data.data);
+      const data = res.data.data;
+
+      setOrders(data);
+
+      setOrderPerc((data[1].total * 100) / data[0].total - 100);
+    };
+
+    getOrderStats();
   }, []);
 
-  console.log(income);
-  console.log(perc);
+  // console.log(income);
+  // console.log(perc);
   return (
     <Container>
       <FeaturedItem>
@@ -82,8 +96,8 @@ export default function FeaturedInfo() {
         <FeaturedMoneyContainer>
           <FeaturedMoney>Rs. {income[1]?.total}</FeaturedMoney>
           <FeaturedMoneyRate>
-            {Math.floor(perc * 10) / 10}%
-            {perc < 0 ? (
+            {Math.floor(incomePerc * 10) / 10}%
+            {incomePerc < 0 ? (
               <FeaturedMoneyArrow negative>
                 <ArrowDownward />
               </FeaturedMoneyArrow>
@@ -99,12 +113,18 @@ export default function FeaturedInfo() {
       <FeaturedItem>
         <FeaturedTitle>Sales</FeaturedTitle>
         <FeaturedMoneyContainer>
-          <FeaturedMoney>Rs. 4415</FeaturedMoney>
+          <FeaturedMoney>{orders[1]?.total}</FeaturedMoney>
           <FeaturedMoneyRate>
-            -1.4{" "}
-            <FeaturedMoneyArrow negative>
-              <ArrowDownward />
-            </FeaturedMoneyArrow>
+          {Math.floor(orderPerc * 10) / 10}%
+            {orderPerc < 0 ? (
+              <FeaturedMoneyArrow negative>
+                <ArrowDownward />
+              </FeaturedMoneyArrow>
+            ) : (
+              <FeaturedMoneyArrow>
+                <ArrowUpward />
+              </FeaturedMoneyArrow>
+            )}
           </FeaturedMoneyRate>
         </FeaturedMoneyContainer>
         <FeaturedSub>Compared to last month</FeaturedSub>
@@ -112,9 +132,9 @@ export default function FeaturedInfo() {
       <FeaturedItem>
         <FeaturedTitle>Cost</FeaturedTitle>
         <FeaturedMoneyContainer>
-          <FeaturedMoney>Rs. 2225</FeaturedMoney>
+          <FeaturedMoney>Rs. 22225</FeaturedMoney>
           <FeaturedMoneyRate>
-            +2.4{" "}
+            +22.4{" "}
             <FeaturedMoneyArrow>
               <ArrowUpward />
             </FeaturedMoneyArrow>

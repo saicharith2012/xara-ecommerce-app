@@ -75,7 +75,51 @@ const getAllOrders = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .json(new ApiResponse(200, orders , "Orders fetched successfully."));
+    .json(new ApiResponse(200, orders, "Orders fetched successfully."));
+});
+
+// get orders by month - admin privilege
+
+const getOrderStats = asyncHandler(async (req, res) => {
+  const date = new Date();
+  const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
+  const previousMonth = new Date(date.setMonth(lastMonth.getMonth() - 1));
+
+  try {
+    const orders = await Order.aggregate([
+      {
+        $match: {
+          createdAt: { $gte: previousMonth },
+        },
+      },
+      {
+        $project: {
+          month: {
+            $month: "$createdAt",
+          },
+        },
+      },
+      {
+        $group: {
+          _id: "$month",
+          total: { $sum: 1 },
+        },
+      },
+    ]).sort({_id: 1});
+
+    if (!orders) {
+      throw new ApiError(
+        500,
+        "Something went wrong while fetching order stats."
+      );
+    }
+
+    res
+      .status(200)
+      .json(new ApiResponse(200, orders, "Order stats fetched successfully."));
+  } catch (error) {
+    console.log(error.message);
+  }
 });
 
 // get income - admin privilege
@@ -105,7 +149,7 @@ const getIncome = asyncHandler(async (req, res) => {
         total: { $sum: "$sales" },
       },
     },
-  ]);
+  ]).sort({_id: 1});
 
   if (!income) {
     throw new ApiError(500, "Something went wrong while fetching the data.");
@@ -123,4 +167,5 @@ export {
   getUserOrders,
   getAllOrders,
   getIncome,
+  getOrderStats,
 };

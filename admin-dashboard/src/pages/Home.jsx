@@ -63,7 +63,7 @@ export default function Home() {
     getStats();
   }, [initialValue]);
 
-  console.log(userStats);
+  // console.log(userStats);
   return (
     <Container>
       <Wrapper>

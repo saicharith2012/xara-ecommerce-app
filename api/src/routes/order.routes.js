@@ -8,6 +8,7 @@ import {
   deleteOrder,
   getAllOrders,
   getIncome,
+  getOrderStats,
   getUserOrders,
   updateOrder,
 } from "../controllers/order.controllers.js";
@@ -33,8 +34,10 @@ router
 // get all orders
 router.route("/all-orders").get(verifyTokenAndAdmin, getAllOrders);
 
-// get income
-router.route("/income").get(verifyTokenAndAdmin, getIncome)
+// get order stats
+router.route("/order-stats").get(verifyTokenAndAdmin, getOrderStats);
 
+// get income
+router.route("/income").get(verifyTokenAndAdmin, getIncome);
 
 export default router;
