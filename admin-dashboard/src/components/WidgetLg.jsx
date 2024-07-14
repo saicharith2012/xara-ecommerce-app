@@ -20,6 +20,9 @@ const Table = styled.table`
   border-spacing: 20px;
 `;
 
+const Thead = styled.thead``;
+const Tbody = styled.tbody``;
+
 const Tr = styled.tr``;
 const Th = styled.th`
   text-align: left;
@@ -124,18 +127,20 @@ export default function WidgetLg() {
     <Container>
       <Title>Latest Transactions</Title>
       <Table>
-        <Tr>
-          <Th>Customer</Th>
-          <Th>Date</Th>
-          <Th>Amount</Th>
-          <Th>Status</Th>
-          <Th>Address</Th>
-        </Tr>
+        <Thead>
+          <Tr>
+            <Th>Customer</Th>
+            <Th>Date</Th>
+            <Th>Amount</Th>
+            <Th>Status</Th>
+            <Th>Address</Th>
+          </Tr>
+        </Thead>
 
-        {orders?.map((order) => {
-          return (
-            <>
-              <Tr>
+        <Tbody>
+          {orders?.map((order) => {
+            return (
+              <Tr key={order._id}>
                 <Td>
                   <Image
                     src={
@@ -152,9 +157,9 @@ export default function WidgetLg() {
                 </Status>
                 <Address>{order.address}</Address>
               </Tr>
-            </>
-          );
-        })}
+            );
+          })}
+        </Tbody>
       </Table>
     </Container>
   );

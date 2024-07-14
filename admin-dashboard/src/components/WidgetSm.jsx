@@ -89,31 +89,27 @@ export default function WidgetSm() {
     <Container>
       <Title>New Join Members</Title>
       <List>
-        {users.map((user) => {
-          return (
-            <>
-              <ListItem key={user._id}>
-                <Image
-                  src={
-                    user.img ||
-                    "https://crowd-literature.eu/wp-content/uploads/2015/01/no-avatar.gif"
-                  }
-                />
-                <User>
-                  <UserName>{user.firstname}</UserName>
-                  <LastName>{user.username}</LastName>
-                </User>
+        {users.map((user) => (
+          <ListItem key={user._id}>
+            <Image
+              src={
+                user.img ||
+                "https://crowd-literature.eu/wp-content/uploads/2015/01/no-avatar.gif"
+              }
+            />
+            <User>
+              <UserName>{user.firstname}</UserName>
+              <LastName>{user.username}</LastName>
+            </User>
 
-                <Button onClick={() => navigate(`/user/${user._id}`)}>
-                  <Icon>
-                    <Visibility />
-                  </Icon>
-                  Display
-                </Button>
-              </ListItem>{" "}
-            </>
-          );
-        })}
+            <Button onClick={() => navigate(`/user/${user._id}`)}>
+              <Icon>
+                <Visibility />
+              </Icon>
+              Display
+            </Button>
+          </ListItem>
+        ))}{" "}
       </List>
     </Container>
   );
