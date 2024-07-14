@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { DataGrid } from "@mui/x-data-grid";
 import { DeleteOutline } from "@mui/icons-material";
-import { productRows } from "../dummyData";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteProduct, fetchProducts } from "../redux/productSlice";
 
 const Container = styled.div`
   width: 100%;
@@ -48,48 +49,48 @@ const Product = styled.div`
 `;
 
 const ProductImage = styled.img`
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 10px;
-  object-position: top;
+  margin-right: 15px;
+  object-position: center;
 `;
 
 export default function ProductList() {
-  const [data, setData] = useState(productRows);
+  const { products } = useSelector((state) => state.product);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    dispatch(deleteProduct(id));
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 100 },
+    { field: "_id", headerName: "ID", width: 250 },
     {
       field: "product",
       headerName: "Product",
-      width: 200,
+      width: 300,
       renderCell: (params) => {
         return (
           <Product>
             <ProductImage src={params.row.image} alt="" />
-            {params.row.name}
+            {params.row.title}
           </Product>
         );
       },
     },
-    { field: "stock", headerName: "Stock", width: 140 },
-    {
-      field: "status",
-      headerName: "Status",
-      width: 120,
-      sortable: false,
-    },
+    { field: "inStock", headerName: "Stock", width: 100 },
     {
       field: "price",
       headerName: "Price",
       sortable: false,
-      width: 200,
+      width: 100,
     },
     {
       field: "action",
@@ -102,7 +103,7 @@ export default function ProductList() {
               <EditProduct>Edit</EditProduct>
             </Link>
             <DeleteIconContainer>
-              <DeleteOutline onClick={() => handleDelete(params.row.id)} />
+              <DeleteOutline onClick={() => handleDelete(params.row._id)} />
             </DeleteIconContainer>
           </ProductActions>
         );
@@ -115,15 +116,15 @@ export default function ProductList() {
       <Title>Products</Title>
       <Table>
         <DataGrid
-          rows={data}
+          rows={products}
           disableRowSelectionOnClick
           columns={columns}
-
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 14 },
             },
           }}
+          getRowId={(row) => row._id}
           checkboxSelection
           pageSizeOptions={[5, 10, 14]}
         />
