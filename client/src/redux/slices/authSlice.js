@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { publicRequest, userRequest } from "../../requestMethods";
+import { publicRequest, userRequest } from "../../requestMethods.js";
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
@@ -56,48 +56,55 @@ const authSlice = createSlice({
   initialState: {
     user: null,
     isAuthenticated: false,
-    error: false,
+    isLoading: false, // Add a loading state
+    error: null,
   },
-  reducers: {
-    setUser(state, action) {
-      state.isAuthenticated = true;
-      state.user = action.payload;
-      state.error = null;
-    },
-    clearUser(state) {
-      state.user = null;
-      state.isAuthenticated = false;
-      state.error = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(loginUser.pending, (state) => {
+        state.isLoading = true; // Set loading state to true
+        state.error = null;
+      })
       .addCase(loginUser.fulfilled, (state, action) => {
+        state.isLoading = false; // Reset loading state
         state.isAuthenticated = true;
         state.user = action.payload;
         state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.isLoading = false; // Reset loading state
         state.error = action.error.message; // Set error message from payload
       })
+      .addCase(logoutUser.pending, (state) => {
+        state.isLoading = true; // Set loading state to true
+        state.error = null;
+      })
       .addCase(logoutUser.fulfilled, (state) => {
+        state.isLoading = false; // Reset loading state
         state.user = null;
         state.error = null;
         state.isAuthenticated = false;
       })
       .addCase(logoutUser.rejected, (state, action) => {
+        state.isLoading = false; // Reset loading state
         state.error = action.payload?.error || "Logout failed"; // Set error message from payload
       })
+      .addCase(loadUserFromToken.pending, (state) => {
+        state.isLoading = true; // Set loading state to true
+        state.error = null;
+      })
       .addCase(loadUserFromToken.fulfilled, (state, action) => {
+        state.isLoading = false; // Reset loading state
         state.isAuthenticated = true;
         state.user = action.payload;
         state.error = null;
       })
       .addCase(loadUserFromToken.rejected, (state, action) => {
+        state.isLoading = false; // Reset loading state
         state.error = action.error.message; // Set error message from payload
       });
   },
 });
 
-export const { clearUser, setUser } = authSlice.actions;
 export default authSlice.reducer;
