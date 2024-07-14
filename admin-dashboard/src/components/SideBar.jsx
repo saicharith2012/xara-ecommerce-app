@@ -56,8 +56,8 @@ const SideBarListItem = styled.li`
   align-items: center;
   font-size: 16px;
   border-radius: 10px;
-  background-color: ${({ isactive }) =>
-    isactive ? "rgb(240, 240, 255)" : "transparent"};
+  background-color: ${({ $isactive }) =>
+    $isactive === "true" ? "rgb(240, 240, 255)" : "transparent"};
 
   &:hover,
   &:active {
@@ -84,20 +84,26 @@ export default function SideBar() {
           <SideBarTitle>Dashboard</SideBarTitle>
           <SideBarList>
             <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-              <SideBarListItem isactive={location.pathname === "/"}>
+              <SideBarListItem
+                $isactive={location.pathname === "/" ? "true" : "false"}
+              >
                 <ListItemIcon>
                   <LineStyle />
                 </ListItemIcon>
                 <ListItemTitle>Home</ListItemTitle>
               </SideBarListItem>
             </Link>
-            <SideBarListItem isactive={location.pathname === "/analytics"}>
+            <SideBarListItem
+              $isactive={location.pathname === "/analytics" ? "true" : "false"}
+            >
               <ListItemIcon>
                 <Timeline />
               </ListItemIcon>
               <ListItemTitle>Analytics</ListItemTitle>
             </SideBarListItem>
-            <SideBarListItem isactive={location.pathname === "/sales"}>
+            <SideBarListItem
+              $isactive={location.pathname === "/sales" ? "true" : "false"}
+            >
               <ListItemIcon>
                 <TrendingUp />
               </ListItemIcon>
@@ -112,7 +118,9 @@ export default function SideBar() {
               to="/users"
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              <SideBarListItem isactive={location.pathname === "/users"}>
+              <SideBarListItem
+                $isactive={location.pathname === "/users" ? "true" : "false"}
+              >
                 <ListItemIcon>
                   <PermIdentity />
                 </ListItemIcon>
@@ -124,20 +132,28 @@ export default function SideBar() {
               to="/products"
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              <SideBarListItem isactive={location.pathname === "/products"}>
+              <SideBarListItem
+                $isactive={location.pathname === "/products" ? "true" : "false"}
+              >
                 <ListItemIcon>
                   <Storefront />
                 </ListItemIcon>
                 <ListItemTitle>Products</ListItemTitle>
               </SideBarListItem>
             </Link>
-            <SideBarListItem isactive={location.pathname === "/transactions"}>
+            <SideBarListItem
+              $isactive={
+                location.pathname === "/transactions" ? "true" : "false"
+              }
+            >
               <ListItemIcon>
                 <AttachMoney />
               </ListItemIcon>
               <ListItemTitle>Transactions</ListItemTitle>
             </SideBarListItem>
-            <SideBarListItem isactive={location.pathname === "/reports"}>
+            <SideBarListItem
+              $isactive={location.pathname === "/reports" ? "true" : "false"}
+            >
               <ListItemIcon>
                 <BarChart />
               </ListItemIcon>
@@ -148,19 +164,25 @@ export default function SideBar() {
         <SideBarMenu>
           <SideBarTitle>Notifications</SideBarTitle>
           <SideBarList>
-            <SideBarListItem isactive={location.pathname === "/mail"}>
+            <SideBarListItem
+              $isactive={location.pathname === "/mail" ? "true" : "false"}
+            >
               <ListItemIcon>
                 <MailOutline />
               </ListItemIcon>
               <ListItemTitle>Mail</ListItemTitle>
             </SideBarListItem>
-            <SideBarListItem isactive={location.pathname === "/feedback"}>
+            <SideBarListItem
+              $isactive={location.pathname === "/feedback" ? "true" : "false"}
+            >
               <ListItemIcon>
                 <DynamicFeed />
               </ListItemIcon>
               <ListItemTitle>Feedback</ListItemTitle>
             </SideBarListItem>
-            <SideBarListItem isactive={location.pathname === "/messages"}>
+            <SideBarListItem
+              $isactive={location.pathname === "/messages" ? "true" : "false"}
+            >
               <ListItemIcon>
                 <ChatBubbleOutline />
               </ListItemIcon>
@@ -171,21 +193,29 @@ export default function SideBar() {
         <SideBarMenu>
           <SideBarTitle>Staff</SideBarTitle>
           <SideBarList>
-            <SideBarListItem isactive={location.pathname === "/manage"}>
+            <SideBarListItem
+              $isactive={location.pathname === "/manage" ? "true" : "false"}
+            >
               <ListItemIcon>
                 <WorkOutline />
               </ListItemIcon>
               <ListItemTitle>Manage</ListItemTitle>
             </SideBarListItem>
             <SideBarListItem
-              isactive={location.pathname === "/staff-analytics"}
+              $isactive={
+                location.pathname === "/staff-analytics" ? "true" : "false"
+              }
             >
               <ListItemIcon>
                 <Timeline />
               </ListItemIcon>
               <ListItemTitle>Analytics</ListItemTitle>
             </SideBarListItem>
-            <SideBarListItem isactive={location.pathname === "/staff-reports"}>
+            <SideBarListItem
+              $isactive={
+                location.pathname === "/staff-reports" ? "true" : "false"
+              }
+            >
               <ListItemIcon>
                 <Report />
               </ListItemIcon>
