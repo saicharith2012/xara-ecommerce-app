@@ -61,13 +61,15 @@ const updateProduct = asyncHandler(async (req, res) => {
 
 // delete product
 const deleteProduct = asyncHandler(async (req, res) => {
-  const user = await Product.findByIdAndDelete(req.params?.id);
+  const product = await Product.findByIdAndDelete(req.params?.id);
 
-  if (!user) {
+  if (!product) {
     throw new ApiError(404, "product not found.");
   }
 
-  return res.status(200).json(200, "product deleted successfully.");
+  return res
+    .status(200)
+    .json(new ApiResponse(200, product, "product deleted successfully."));
 });
 
 // USER PRIVILEGES
