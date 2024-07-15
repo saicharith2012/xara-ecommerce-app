@@ -99,7 +99,7 @@ export default function ProductList() {
       renderCell: (params) => {
         return (
           <ProductActions>
-            <Link to={"/product/" + params.row.id}>
+            <Link to={"/product/" + params.row._id}>
               <EditProduct>Edit</EditProduct>
             </Link>
             <DeleteIconContainer>
