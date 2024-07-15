@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import Chart from "../components/Chart";
 import { productData } from "../dummyData";
 import { Publish } from "@mui/icons-material";
+import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useEffect, useMemo, useState } from "react";
+import { userRequest } from "../requestMethods";
 
 const Container = styled.div`
   width: 100%;
@@ -63,7 +67,7 @@ const ProductImage = styled.img`
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
-  object-position: top;
+  object-position: center;
   margin-right: 20px;
 `;
 
@@ -82,7 +86,7 @@ const ProductInfoBottom = styled.div`
 
 const ProductInfoItem = styled.div`
   font-size: 16px;
-  width: 120px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   ${"" /* margin: 10px 10px; */}
@@ -90,6 +94,7 @@ const ProductInfoItem = styled.div`
 
 const ProductInfoKey = styled.span`
   font-weight: 600;
+  margin-right: 10px;
 `;
 
 const ProductInfoValue = styled.span`
@@ -172,7 +177,7 @@ const ProductUpdateImage = styled.img`
   object-fit: cover;
   border-radius: 20px;
   margin: 5px 0px;
-  object-position: top;
+  object-position: center;
 `;
 const FileUploadLabel = styled.label`
   cursor: pointer;
@@ -192,9 +197,56 @@ const UpdateButton = styled.button`
   border: none;
   cursor: pointer;
   font-weight: 500;
-`
+`;
 
 export default function Product() {
+  const location = useLocation();
+  const pid = location.pathname.split("/")[2];
+
+  const [productStats, setProductStats] = useState([]);
+
+  const MONTHS = useMemo(
+    () => [
+      { name: "Jan" },
+      { name: "Feb" },
+      { name: "Mar" },
+      { name: "Apr" },
+      { name: "May" },
+      { name: "June" },
+      { name: "July" },
+      { name: "Aug" },
+      { name: "Sept" },
+      { name: "Oct" },
+      { name: "Nov" },
+      { name: "Dec" },
+    ],
+    []
+  );
+
+  const product = useSelector((state) =>
+    state.product.products.find((product) => product._id === pid)
+  );
+
+  useEffect(() => {
+    const getProductStats = async () => {
+      const response = await userRequest.get(`orders/income?pid=${pid}`);
+
+      response.data.data.map((item) => {
+        setProductStats((prev) => [
+          ...prev,
+          {name: MONTHS[item._id - 1].name, Sales: item.total},
+        ]);
+      });
+
+      console.log(response);
+    };
+    getProductStats();
+  }, [pid, MONTHS]);
+
+  console.log(productStats);
+
+  const handleClick = () => {};
+
   return (
     <Container>
       <TitleContainer>
@@ -206,33 +258,32 @@ export default function Product() {
 
       <ProductTop>
         <ProductTopLeft>
-          <Chart data={productData} title="Sales Performance" dataKey="Sales" />
+          <Chart data={productStats} title="Sales Performance" dataKey="Sales" />
         </ProductTopLeft>
         <ProductTopRight>
           <ProductInfoTop>
-            <ProductImage
-              src="https://res.cloudinary.com/dgiksl9k7/image/upload/v1683351711/xara-ecommerce-app/products/3736044403_1_1_1_nnhhqi.jpg"
-              alt=""
-            />
-            <ProductName>Blue Suit</ProductName>
+            <ProductImage src={product.image} alt="" />
+            <ProductName>{product.title}</ProductName>
           </ProductInfoTop>
 
           <ProductInfoBottom>
             <ProductInfoItem>
               <ProductInfoKey>id: </ProductInfoKey>
-              <ProductInfoValue>123</ProductInfoValue>
+              <ProductInfoValue>{product._id}</ProductInfoValue>
             </ProductInfoItem>{" "}
             <ProductInfoItem>
               <ProductInfoKey>sales: </ProductInfoKey>
               <ProductInfoValue>4123</ProductInfoValue>
             </ProductInfoItem>{" "}
             <ProductInfoItem>
-              <ProductInfoKey>active: </ProductInfoKey>
-              <ProductInfoValue>yes</ProductInfoValue>
-            </ProductInfoItem>{" "}
+              <ProductInfoKey>price: </ProductInfoKey>
+              <ProductInfoValue>Rs. {product.price}</ProductInfoValue>
+            </ProductInfoItem>
             <ProductInfoItem>
               <ProductInfoKey>in stock: </ProductInfoKey>
-              <ProductInfoValue>no</ProductInfoValue>
+              <ProductInfoValue>
+                {product.inStock ? "yes" : "no"}
+              </ProductInfoValue>
             </ProductInfoItem>
           </ProductInfoBottom>
         </ProductTopRight>
@@ -244,35 +295,33 @@ export default function Product() {
           <ProductUpdateLeft>
             <ProductUpdateItem>
               <Label>Product Name</Label>
-              <Input type="text" placeholder="Blue Suit" />
+              <Input type="text" placeholder={product.title} />
+            </ProductUpdateItem>{" "}
+            <ProductUpdateItem>
+              <Label>Description</Label>
+              <Input type="text" placeholder={product.description} />
+            </ProductUpdateItem>{" "}
+            <ProductUpdateItem>
+              <Label>Price</Label>
+              <Input type="text" placeholder={`${product.price}`} />
             </ProductUpdateItem>{" "}
             <ProductUpdateItem>
               <Label>In Stock</Label>
               <Select name="inStock" id="inStock">
-                <Option value="yes">Yes</Option>
-                <Option value="no">No</Option>
+                <Option value="true">Yes</Option>
+                <Option value="false">No</Option>
               </Select>
-            </ProductUpdateItem>{" "}
-            <ProductUpdateItem>
-              <Label>Active</Label>
-              <Select name="active" id="active">
-                <Option value="yes">Yes</Option>
-                <Option value="no">No</Option>
-              </Select>{" "}
             </ProductUpdateItem>{" "}
           </ProductUpdateLeft>
           <ProductUpdateRight>
             <ProductUploadImageSection>
-              <ProductUpdateImage
-                src="https://res.cloudinary.com/dgiksl9k7/image/upload/v1683351711/xara-ecommerce-app/products/3736044403_1_1_1_nnhhqi.jpg"
-                alt=""
-              />
+              <ProductUpdateImage src={product.image} alt="" />
               <FileUploadLabel htmlFor="file">
                 <Publish />
               </FileUploadLabel>
               <FileUploadInput type="file" id="file" />
             </ProductUploadImageSection>
-            <UpdateButton>Update</UpdateButton>
+            <UpdateButton onClick={() => handleClick()}>Update</UpdateButton>
           </ProductUpdateRight>
         </ProductUpdateForm>
       </ProductBottom>

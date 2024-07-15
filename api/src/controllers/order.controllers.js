@@ -2,6 +2,7 @@ import asyncHandler from "../utils/asyncHandler.js";
 import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import { Order } from "../models/order.models.js";
+import mongoose from "mongoose";
 
 // create order
 const createOrder = asyncHandler(async (req, res) => {
@@ -105,7 +106,7 @@ const getOrderStats = asyncHandler(async (req, res) => {
           total: { $sum: 1 },
         },
       },
-    ]).sort({_id: 1});
+    ]).sort({ _id: 1 });
 
     if (!orders) {
       throw new ApiError(
@@ -124,6 +125,7 @@ const getOrderStats = asyncHandler(async (req, res) => {
 
 // get income - admin privilege
 const getIncome = asyncHandler(async (req, res) => {
+  const productId = mongoose.Types.ObjectId.createFromHexString(req.query?.pid.toString());
   const date = new Date();
   const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
   const previousMonth = new Date(date.setMonth(lastMonth.getMonth() - 1));
@@ -132,6 +134,9 @@ const getIncome = asyncHandler(async (req, res) => {
     {
       $match: {
         createdAt: { $gte: previousMonth },
+        ...(productId && {
+          products: { $elemMatch: { product: productId } },
+        }),
       },
     },
     {
@@ -149,7 +154,7 @@ const getIncome = asyncHandler(async (req, res) => {
         total: { $sum: "$sales" },
       },
     },
-  ]).sort({_id: 1});
+  ]).sort({ _id: 1 });
 
   if (!income) {
     throw new ApiError(500, "Something went wrong while fetching the data.");
