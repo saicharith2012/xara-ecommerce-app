@@ -1,12 +1,12 @@
-import axios from "axios"
+import axios from "axios";
 
-const BASE_URL = "http://localhost:4000/api/v1/"
+const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 export const publicRequest = axios.create({
-    baseURL: BASE_URL,
-})
+  baseURL: BASE_URL,
+});
 
 export const userRequest = axios.create({
-    baseURL: BASE_URL,
-    withCredentials: true
-})
+  baseURL: BASE_URL,
+  withCredentials: true,
+});
