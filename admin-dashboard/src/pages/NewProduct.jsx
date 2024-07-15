@@ -1,4 +1,7 @@
+import { useState } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/productSlice";
 
 const Container = styled.div`
   width: 100%;
@@ -75,32 +78,119 @@ const CreateProduct = styled.button`
 `;
 
 export default function NewProduct() {
+  const dispatch = useDispatch();
+
+  const initialValue = {
+    title: "",
+    description: "",
+    price: "",
+    gender: "men",
+    inStock: "yes",
+    type: "suits",
+  };
+
+  const [newProduct, setNewProduct] = useState(initialValue);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewProduct((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    console.log(newProduct);
+    dispatch(addProduct(newProduct));
+  };
+
   return (
     <Container>
       <Wrapper>
         <Title>New Product</Title>
-        <NewUserForm>
+        <NewUserForm onSubmit={handleCreate}>
           <FormItem>
-            <FormItemLabel>Product Name</FormItemLabel>
-            <FormItemInput type="text" placeholder="Blue Suit" />
+            <FormItemLabel>Title</FormItemLabel>
+            <FormItemInput
+              type="text"
+              placeholder="Blue Suit"
+              name="title"
+              value={newProduct.title}
+              required
+              onChange={handleChange}
+            />
           </FormItem>{" "}
+          <FormItem>
+            <FormItemLabel>Description</FormItemLabel>
+            <FormItemInput
+              type="text"
+              placeholder="Describe the product"
+              name="description"
+              value={newProduct.description}
+              required
+              onChange={handleChange}
+            />
+          </FormItem>
+          <FormItem>
+            <FormItemLabel>Price</FormItemLabel>
+            <FormItemInput
+              type="text"
+              placeholder="2341"
+              name="price"
+              value={newProduct.price}
+              required
+              onChange={handleChange}
+            />
+          </FormItem>{" "}
+          <FormItem>
+            <FormItemLabel>Gender</FormItemLabel>
+            <NewProductSelect
+              name="gender"
+              id="gender"
+              required
+              onChange={handleChange}
+              value={newProduct.gender}
+            >
+              <NewProductOption value="men">Men</NewProductOption>
+              <NewProductOption value="women">Women</NewProductOption>
+            </NewProductSelect>
+          </FormItem>{" "}
+          <FormItem>
+            <FormItemLabel>In Stock</FormItemLabel>
+            <NewProductSelect
+              name="inStock"
+              id="inStock"
+              required
+              onChange={handleChange}
+              value={newProduct.inStock}
+            >
+              <NewProductOption value="true">Yes</NewProductOption>
+              <NewProductOption value="false">No</NewProductOption>
+            </NewProductSelect>
+          </FormItem>{" "}
+          <FormItem>
+            <FormItemLabel>Type</FormItemLabel>
+            <NewProductSelect
+              name="type"
+              id="type"
+              required
+              onChange={handleChange}
+              value={newProduct.type}
+            >
+              <NewProductOption value="suits">Suits</NewProductOption>
+              <NewProductOption value="jackets">Jackets</NewProductOption>
+              <NewProductOption value="accessories">
+                Accessories
+              </NewProductOption>
+            </NewProductSelect>
+          </FormItem>
           <FormItem>
             <FormItemLabel>Upload Image</FormItemLabel>
             <FormFileInput type="file" id="file" />
           </FormItem>{" "}
           <FormItem>
-            <FormItemLabel>Stock</FormItemLabel>
-            <FormItemInput type="text" placeholder="123" />
-          </FormItem>{" "}
-          <FormItem>
-            <FormItemLabel>Active</FormItemLabel>
-            <NewProductSelect name="active" id="active">
-              <NewProductOption value="yes">Yes</NewProductOption>
-              <NewProductOption value="no">No</NewProductOption>
-            </NewProductSelect>
-          </FormItem>
-          <FormItem>
-            <CreateProduct>Create</CreateProduct>
+            <CreateProduct type="submit">Create</CreateProduct>
           </FormItem>
         </NewUserForm>
       </Wrapper>

@@ -51,6 +51,23 @@ export const updateProduct = createAsyncThunk(
   }
 );
 
+// adding a product
+export const addProduct = createAsyncThunk(
+  "product/addProduct",
+  async (product, thunkAPI) => {
+    try {
+      const response = await userRequest.post(
+        "/products/create-product",
+        product
+      );
+
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
 const productSlice = createSlice({
   name: "product",
   initialState: {
@@ -104,6 +121,19 @@ const productSlice = createSlice({
         state.error = null;
       })
       .addCase(updateProduct.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || "Failed to update the product.";
+      })
+      .addCase(addProduct.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(addProduct.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.products.push(action.payload);
+        state.error = null;
+      })
+      .addCase(addProduct.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload || "Failed to update the product.";
       });
