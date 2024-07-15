@@ -118,6 +118,7 @@ const Login = () => {
 
     try {
       dispatch(loginUser({ identifier, password }));
+      navigate("/")
       console.log("logged in successfully.");
     } catch (error) {
       setErrorMessage("Invalid credentials. Please try again.");
