@@ -93,27 +93,6 @@ export default function SideBar() {
                 <ListItemTitle>Home</ListItemTitle>
               </SideBarListItem>
             </Link>
-            <SideBarListItem
-              $isactive={location.pathname === "/analytics" ? "true" : "false"}
-            >
-              <ListItemIcon>
-                <Timeline />
-              </ListItemIcon>
-              <ListItemTitle>Analytics</ListItemTitle>
-            </SideBarListItem>
-            <SideBarListItem
-              $isactive={location.pathname === "/sales" ? "true" : "false"}
-            >
-              <ListItemIcon>
-                <TrendingUp />
-              </ListItemIcon>
-              <ListItemTitle>Sales</ListItemTitle>
-            </SideBarListItem>
-          </SideBarList>
-        </SideBarMenu>
-        <SideBarMenu>
-          <SideBarTitle>Quick Menu</SideBarTitle>
-          <SideBarList>
             <Link
               to="/users"
               style={{ textDecoration: "none", color: "inherit" }}
@@ -127,7 +106,6 @@ export default function SideBar() {
                 <ListItemTitle>Users</ListItemTitle>
               </SideBarListItem>
             </Link>
-
             <Link
               to="/products"
               style={{ textDecoration: "none", color: "inherit" }}
@@ -150,76 +128,6 @@ export default function SideBar() {
                 <AttachMoney />
               </ListItemIcon>
               <ListItemTitle>Transactions</ListItemTitle>
-            </SideBarListItem>
-            <SideBarListItem
-              $isactive={location.pathname === "/reports" ? "true" : "false"}
-            >
-              <ListItemIcon>
-                <BarChart />
-              </ListItemIcon>
-              <ListItemTitle>Reports</ListItemTitle>
-            </SideBarListItem>
-          </SideBarList>
-        </SideBarMenu>
-        <SideBarMenu>
-          <SideBarTitle>Notifications</SideBarTitle>
-          <SideBarList>
-            <SideBarListItem
-              $isactive={location.pathname === "/mail" ? "true" : "false"}
-            >
-              <ListItemIcon>
-                <MailOutline />
-              </ListItemIcon>
-              <ListItemTitle>Mail</ListItemTitle>
-            </SideBarListItem>
-            <SideBarListItem
-              $isactive={location.pathname === "/feedback" ? "true" : "false"}
-            >
-              <ListItemIcon>
-                <DynamicFeed />
-              </ListItemIcon>
-              <ListItemTitle>Feedback</ListItemTitle>
-            </SideBarListItem>
-            <SideBarListItem
-              $isactive={location.pathname === "/messages" ? "true" : "false"}
-            >
-              <ListItemIcon>
-                <ChatBubbleOutline />
-              </ListItemIcon>
-              <ListItemTitle>Messages</ListItemTitle>
-            </SideBarListItem>
-          </SideBarList>
-        </SideBarMenu>
-        <SideBarMenu>
-          <SideBarTitle>Staff</SideBarTitle>
-          <SideBarList>
-            <SideBarListItem
-              $isactive={location.pathname === "/manage" ? "true" : "false"}
-            >
-              <ListItemIcon>
-                <WorkOutline />
-              </ListItemIcon>
-              <ListItemTitle>Manage</ListItemTitle>
-            </SideBarListItem>
-            <SideBarListItem
-              $isactive={
-                location.pathname === "/staff-analytics" ? "true" : "false"
-              }
-            >
-              <ListItemIcon>
-                <Timeline />
-              </ListItemIcon>
-              <ListItemTitle>Analytics</ListItemTitle>
-            </SideBarListItem>
-            <SideBarListItem
-              $isactive={
-                location.pathname === "/staff-reports" ? "true" : "false"
-              }
-            >
-              <ListItemIcon>
-                <Report />
-              </ListItemIcon>
-              <ListItemTitle>Reports</ListItemTitle>
             </SideBarListItem>
           </SideBarList>
         </SideBarMenu>
