@@ -3,8 +3,10 @@ import FeaturedInfo from "../components/FeaturedInfo";
 import Chart from "../components/Chart";
 import WidgetSm from "../components/WidgetSm";
 import WidgetLg from "../components/WidgetLg";
-import { useEffect, useState, useMemo } from "react";
-import { userRequest } from "../requestMethods";
+import { useEffect, useMemo } from "react";
+// import { userRequest } from "../requestMethods";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserStats } from "../redux/statSlice";
 
 const Container = styled.div`
   width: calc(100vw - 300px);
@@ -19,6 +21,11 @@ const HomeWidgets = styled.div`
 `;
 
 export default function Home() {
+  const dispatch = useDispatch();
+
+  const { userStats } = useSelector((state) => state.stats);
+  // console.log(userStats);
+  
   const initialValue = useMemo(
     () => [
       { name: "Jan", "Active User": 0 },
@@ -37,31 +44,10 @@ export default function Home() {
     []
   );
 
-  const [userStats, setUserStats] = useState(initialValue);
-
   useEffect(() => {
-    const getStats = async () => {
-      try {
-        const response = await userRequest.get("/users/user-stats");
-
-        const updatedStats = initialValue.map((month, index) => {
-          const monthData = response.data.data.find(
-            (item) => item._id - 1 === index
-          );
-          if (monthData) {
-            return { ...month, "Active User": monthData.total };
-          }
-          return month;
-        });
-
-        setUserStats(updatedStats);
-        // console.log(response.data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getStats();
-  }, [initialValue]);
+    dispatch(fetchUserStats(initialValue));
+    // console.log(response.data.data);
+  }, [initialValue, dispatch]);
 
   // console.log(userStats);
   return (

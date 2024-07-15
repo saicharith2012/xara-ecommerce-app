@@ -13,6 +13,7 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 
 import authReducer from "./authSlice.js";
 import productReducer from "./productSlice.js"
+import statReducer from "./statSlice.js";
 
 // persist config
 const persistConfig = {
@@ -24,7 +25,8 @@ const persistConfig = {
 // Combining reducers
 const rootReducer = combineReducers({
   auth: authReducer,
-  product: productReducer
+  product: productReducer,
+  stats: statReducer
 });
 
 // persisted reducer
