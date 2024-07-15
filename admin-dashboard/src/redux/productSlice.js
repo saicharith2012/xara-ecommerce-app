@@ -35,11 +35,14 @@ export const deleteProduct = createAsyncThunk(
 // update product
 export const updateProduct = createAsyncThunk(
   "product/updateProduct",
-  async (id, thunkAPI) => {
+  async (updatedProduct, thunkAPI) => {
     try {
-      const response = await userRequest.put(`products/delete-product/${id}`);
+      const response = await userRequest.put(
+        `products/update-product/${updatedProduct._id}`,
+        updatedProduct
+      );
 
-      console.log(response.data.data);
+      // console.log(response.data.data);
 
       return response.data.data;
     } catch (error) {
@@ -95,7 +98,8 @@ const productSlice = createSlice({
         state.isLoading = false;
         state.products.splice(
           state.products.findIndex((item) => item._id === action.payload._id),
-          1, action.payload
+          1,
+          action.payload
         );
         state.error = null;
       })
