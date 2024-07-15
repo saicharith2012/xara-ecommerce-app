@@ -125,7 +125,7 @@ const getOrderStats = asyncHandler(async (req, res) => {
 
 // get income - admin privilege
 const getIncome = asyncHandler(async (req, res) => {
-  const productId = mongoose.Types.ObjectId.createFromHexString(req.query?.pid.toString());
+  const productId = req.query?.pid && mongoose.Types.ObjectId.createFromHexString(req.query?.pid?.toString());
   const date = new Date();
   const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
   const previousMonth = new Date(date.setMonth(lastMonth.getMonth() - 1));
