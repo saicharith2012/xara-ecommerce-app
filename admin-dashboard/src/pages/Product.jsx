@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Chart from "../components/Chart";
-import { productData } from "../dummyData";
 import { Publish } from "@mui/icons-material";
 import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 import { userRequest } from "../requestMethods";
+import { updateProduct } from "../redux/productSlice";
 
 const Container = styled.div`
   width: 100%;
@@ -59,7 +59,6 @@ const ProductInfoTop = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
-  ${"" /* margin-bottom: 20px; */}
 `;
 
 const ProductImage = styled.img`
@@ -89,7 +88,6 @@ const ProductInfoItem = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  ${"" /* margin: 10px 10px; */}
 `;
 
 const ProductInfoKey = styled.span`
@@ -202,8 +200,16 @@ const UpdateButton = styled.button`
 export default function Product() {
   const location = useLocation();
   const pid = location.pathname.split("/")[2];
+  const product = useSelector((state) =>
+    state.product.products.find((product) => product._id === pid)
+  );
 
+  const dispatch = useDispatch();
   const [productStats, setProductStats] = useState([]);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [inStock, setInStock] = useState(product.inStock.toString());
 
   const MONTHS = useMemo(
     () => [
@@ -223,29 +229,38 @@ export default function Product() {
     []
   );
 
-  const product = useSelector((state) =>
-    state.product.products.find((product) => product._id === pid)
-  );
-
   useEffect(() => {
     const getProductStats = async () => {
       const response = await userRequest.get(`orders/income?pid=${pid}`);
 
-      response.data.data.map((item) => {
-        setProductStats((prev) => [
-          ...prev,
-          {name: MONTHS[item._id - 1].name, Sales: item.total},
-        ]);
-      });
+      const newProductStats = response.data.data.map((item) => ({
+        name: MONTHS[item._id - 1].name,
+        Sales: item.total,
+      }));
 
-      console.log(response);
+      setProductStats(newProductStats);
     };
     getProductStats();
   }, [pid, MONTHS]);
 
-  console.log(productStats);
+  const handleEditProduct = async (e) => {
+    e.preventDefault();
 
-  const handleClick = () => {};
+    const updatedProduct = {
+      _id: product._id,
+      title: title || product.title,
+      description: description || product.description,
+      price: price || product.price,
+      inStock,
+    };
+
+    dispatch(updateProduct(updatedProduct));
+
+    setTitle("");
+    setDescription("");
+    setPrice("");
+    setInStock(product.inStock.toString());
+  };
 
   return (
     <Container>
@@ -258,7 +273,11 @@ export default function Product() {
 
       <ProductTop>
         <ProductTopLeft>
-          <Chart data={productStats} title="Sales Performance" dataKey="Sales" />
+          <Chart
+            data={productStats}
+            title="Sales Performance"
+            dataKey="Sales"
+          />
         </ProductTopLeft>
         <ProductTopRight>
           <ProductInfoTop>
@@ -270,11 +289,11 @@ export default function Product() {
             <ProductInfoItem>
               <ProductInfoKey>id: </ProductInfoKey>
               <ProductInfoValue>{product._id}</ProductInfoValue>
-            </ProductInfoItem>{" "}
+            </ProductInfoItem>
             <ProductInfoItem>
               <ProductInfoKey>sales: </ProductInfoKey>
               <ProductInfoValue>4123</ProductInfoValue>
-            </ProductInfoItem>{" "}
+            </ProductInfoItem>
             <ProductInfoItem>
               <ProductInfoKey>price: </ProductInfoKey>
               <ProductInfoValue>Rs. {product.price}</ProductInfoValue>
@@ -291,27 +310,50 @@ export default function Product() {
 
       <ProductBottom>
         <ProductUpdateTitle>Edit</ProductUpdateTitle>
-        <ProductUpdateForm>
+        <ProductUpdateForm onSubmit={handleEditProduct}>
           <ProductUpdateLeft>
             <ProductUpdateItem>
               <Label>Product Name</Label>
-              <Input type="text" placeholder={product.title} />
-            </ProductUpdateItem>{" "}
+              <Input
+                type="text"
+                name="title"
+                value={title}
+                placeholder={product.title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </ProductUpdateItem>
             <ProductUpdateItem>
               <Label>Description</Label>
-              <Input type="text" placeholder={product.description} />
-            </ProductUpdateItem>{" "}
+              <Input
+                type="text"
+                name="description"
+                value={description}
+                placeholder={product.description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </ProductUpdateItem>
             <ProductUpdateItem>
               <Label>Price</Label>
-              <Input type="text" placeholder={`${product.price}`} />
-            </ProductUpdateItem>{" "}
+              <Input
+                type="text"
+                name="price"
+                value={price}
+                placeholder={`Rs. ${product.price}`}
+                onChange={(e) => setPrice(e.target.value)}
+              />
+            </ProductUpdateItem>
             <ProductUpdateItem>
               <Label>In Stock</Label>
-              <Select name="inStock" id="inStock">
+              <Select
+                name="inStock"
+                id="inStock"
+                value={inStock}
+                onChange={(e) => setInStock(e.target.value)}
+              >
                 <Option value="true">Yes</Option>
                 <Option value="false">No</Option>
               </Select>
-            </ProductUpdateItem>{" "}
+            </ProductUpdateItem>
           </ProductUpdateLeft>
           <ProductUpdateRight>
             <ProductUploadImageSection>
@@ -321,7 +363,7 @@ export default function Product() {
               </FileUploadLabel>
               <FileUploadInput type="file" id="file" />
             </ProductUploadImageSection>
-            <UpdateButton onClick={() => handleClick()}>Update</UpdateButton>
+            <UpdateButton type="submit">Update</UpdateButton>
           </ProductUpdateRight>
         </ProductUpdateForm>
       </ProductBottom>
