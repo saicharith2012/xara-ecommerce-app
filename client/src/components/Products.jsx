@@ -100,7 +100,7 @@ const Products = ({ category, filters, sort }) => {
         [...filteredProducts].sort((a, b) => b.price - a.price)
       );
     } else {
-      setSortedProducts([...filteredProducts]);
+      setSortedProducts([...(filteredProducts || [])]);
     }
   }, [filteredProducts, sort]);
 
