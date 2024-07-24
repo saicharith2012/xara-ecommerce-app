@@ -9,8 +9,8 @@ import jwt from "jsonwebtoken";
 const generateAccessandRefreshToken = async function (userId) {
   try {
     const user = await User.findById(userId);
-    const accessToken = user.generateAccessToken();
-    const refreshToken = user.generateRefreshToken();
+    const accessToken = await user.generateAccessToken();
+    const refreshToken = await user.generateRefreshToken();
 
     // save the refresh token in the database without any validation
     user.refreshToken = refreshToken;
@@ -123,6 +123,9 @@ const loginUser = asyncHandler(async (req, res) => {
   const { accessToken, refreshToken } = await generateAccessandRefreshToken(
     existedUser._id
   );
+
+  // console.log("Access Token: ", accessToken)
+  // console.log("Refresh Token: ", refreshToken)
 
   // send them to the user in the form of cookies
   const loggedInUser = await User.findById(existedUser._id).select(

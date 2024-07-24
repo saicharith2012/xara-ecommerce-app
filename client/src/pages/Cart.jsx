@@ -165,9 +165,7 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
-  const stripePromise = loadStripe(
-    "pk_test_51P8QZ8SAebfcjcE8BJIv6SZDuWLnl8pRpzeSuFk922JQSeccm0xLbGVSYrEN3IHUCFfvN6f3xxedeyhDU2VIVzVQ009LJjjOHy"
-  );
+  const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
   const { quantity, products, total } = useSelector((state) => state.cart);
 
