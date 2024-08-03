@@ -14,12 +14,12 @@ connectDB()
     app.listen(port, async () => {
       console.log(`Server is running on http://localhost:${port}`);
 
-      const listener = await ngrok.forward({
-        addr: port,
-        authtoken: process.env.NGROK_AUTH_TOKEN,
-      });
+      // const listener = await ngrok.forward({
+      //   addr: port,
+      //   authtoken: process.env.NGROK_AUTH_TOKEN,
+      // });
 
-      console.log(`Ingress established at: ${listener.url()}`);
+      // console.log(`Ingress established at: ${listener.url()}`);
     });
   })
   .catch((error) => {
