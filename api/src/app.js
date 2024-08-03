@@ -1,5 +1,4 @@
 import express, { Router } from "express";
-import cors from "cors";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -7,28 +6,33 @@ const app = express();
 // cross origin resource sharing
 // - allowing requests from different origins and
 //  allowing the requests with credentials and authorization headers
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      // List of allowed origins
-      const allowedOrigins = [process.env.CORS_ORIGIN_ADMIN, process.env.CORS_ORIGIN_VERCEL];
-      
-      // Allow requests with no origin (like mobile apps or CURL requests)
-      if (!origin) return callback(null, true);
+// Define allowed origins
+const allowedOrigins = [
+  process.env.CORS_ORIGIN_VERCEL,
+  process.env.CORS_ORIGIN_ADMIN,
+  'http://localhost:3000'  // local development
+];
 
-      if (allowedOrigins.includes(origin)) {
-        // If the origin is in the allowed list, allow the request
-        callback(null, true);
-      } else {
-        // If the origin is not in the allowed list, block the request
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
-);
+// Custom CORS Middleware
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Max-Age', '7200'); // Cache preflight response
+  }
+
+  // Proceed to next middleware
+  next();
+});
+
+// Handle preflight requests
+app.options('*', (req, res) => {
+  res.sendStatus(204); // No content
+});
 
 // to parse the incoming json data from the requests
 // also limiting the max-size of the payload
