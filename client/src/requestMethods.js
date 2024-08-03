@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
+const BASE_URL = process.env.SERVER_BASE_URL
 
 export const publicRequest = axios.create({
     baseURL: BASE_URL,
