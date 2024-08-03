@@ -9,7 +9,7 @@ const app = express();
 //  allowing the requests with credentials and authorization headers
 app.use(
   cors({
-    origin: [process.env.CORS_ORIGIN, process.env.CORS_ORIGIN_ADMIN, process.env.CORS_ORIGIN_FRONTEND_DEPLOYMENT],
+    origin: [process.env.CORS_ORIGIN_FRONTEND_DEPLOYMENT],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
