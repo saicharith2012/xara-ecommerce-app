@@ -9,7 +9,21 @@ const app = express();
 //  allowing the requests with credentials and authorization headers
 app.use(
   cors({
-    origin: [process.env.CORS_ORIGIN_ADMIN, process.env.CORS_ORIGIN_VERCEL],
+    origin: function (origin, callback) {
+      // List of allowed origins
+      const allowedOrigins = [process.env.CORS_ORIGIN_ADMIN, process.env.CORS_ORIGIN_VERCEL];
+      
+      // Allow requests with no origin (like mobile apps or CURL requests)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        // If the origin is in the allowed list, allow the request
+        callback(null, true);
+      } else {
+        // If the origin is not in the allowed list, block the request
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
