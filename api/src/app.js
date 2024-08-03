@@ -15,7 +15,7 @@ const allowedOrigins = [
 
 // Custom CORS Middleware
 app.use((req, res, next) => {
-  const origin = req.headers.origin;
+  const origin = req.headers.referer;
   
   if (allowedOrigins.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
