@@ -1,5 +1,6 @@
 import express, { Router } from "express";
 import cookieParser from "cookie-parser";
+import cors from "cors"
 
 const app = express();
 
@@ -13,26 +14,28 @@ const allowedOrigins = [
   'http://localhost:3000'  // local development
 ];
 
-// Custom CORS Middleware
-app.use((req, res, next) => {
-  const origin = req.headers.referer;
-  
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-    res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.setHeader('Access-Control-Max-Age', '7200'); // Cache preflight response
-  }
+// CORS Options
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin
+    if (!origin) return callback(null, true);
 
-  // Proceed to next middleware
-  next();
-});
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true, // Allow credentials
+};
 
-// Handle preflight requests
-app.options('*', (req, res) => {
-  res.sendStatus(204); // No content
-});
+// Use CORS middleware
+app.use(cors(corsOptions));
+
+// Handle preflight requests for all routes
+app.options('*', cors(corsOptions));
 
 // to parse the incoming json data from the requests
 // also limiting the max-size of the payload
