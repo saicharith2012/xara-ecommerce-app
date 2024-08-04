@@ -38,30 +38,22 @@ const verifyJWT = asyncHandler(async (req, res, next) => {
 });
 
 const verifyTokenAndAuthorization = asyncHandler(async (req, res, next) => {
-  await verifyJWT(req, res, () => {
-    // Ensure req.user is defined before accessing its properties
-    if (
-      req.user &&
-      (req.user._id.toString() === req.params.id || req.user.isAdmin)
-    ) {
+  verifyJWT(req, res, () => {
+    if (req.user._id || req.user.isAdmin) {
       next();
     } else {
-      next(new ApiError(403, "Unauthorized request."));
+      throw new ApiError(403, "Unauthorized request.");
     }
   });
 });
 
 // middleware for admin privileges
 const verifyTokenAndAdmin = asyncHandler(async (req, res, next) => {
-  await verifyJWT(req, res, () => {
-    // Ensure req.user is defined before accessing its properties
-    if (
-      req.user &&
-      (req.user._id.toString() === req.params.id || req.user.isAdmin)
-    ) {
+  verifyJWT(req, res, () => {
+    if (req.user?.isAdmin) {
       next();
     } else {
-      next(new ApiError(403, "Unauthorized request."));
+      throw new ApiError(403, "Unauthorized request.");
     }
   });
 });
