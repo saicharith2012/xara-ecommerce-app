@@ -108,7 +108,7 @@ const Navbar = () => {
       dispatch(logoutUser())
         .unwrap()
         .then((response) => {
-          console.log(response.message);
+          console.log(response);
         });
       dispatch(clearCart());
       navigate("/");
