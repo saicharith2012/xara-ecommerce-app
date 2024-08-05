@@ -1,6 +1,6 @@
 import express, { Router } from "express";
 import cookieParser from "cookie-parser";
-import cors from "cors"
+import cors from "cors";
 
 const app = express();
 
@@ -11,7 +11,7 @@ const app = express();
 const allowedOrigins = [
   process.env.CORS_ORIGIN_VERCEL,
   process.env.CORS_ORIGIN_ADMIN,
-  'http://localhost:3000'  // local development
+  "http://localhost:3000", // local development
 ];
 
 // CORS Options
@@ -23,19 +23,20 @@ const corsOptions = {
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error("Not allowed by CORS"));
     }
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true, // Allow credentials
+  optionsSuccessStatus: 204,
 };
 
 // Use CORS middleware
 app.use(cors(corsOptions));
 
 // Handle preflight requests for all routes
-app.options('*', cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 // to parse the incoming json data from the requests
 // also limiting the max-size of the payload
