@@ -97,7 +97,10 @@ const loginUser = asyncHandler(async (req, res) => {
   // checking email and username format
   if (validator.isEmail(identifier)) {
     email = identifier;
-  } else if (!validator.isEmail(identifier) && validator.isLowercase(identifier)) {
+  } else if (
+    !validator.isEmail(identifier) &&
+    validator.isLowercase(identifier)
+  ) {
     username = identifier;
   } else {
     throw new ApiError(400, "email or username is invalid.");
@@ -135,6 +138,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const options = {
     httpOnly: true,
     secure: true, // options for cookies to ensure only server can modify them.
+    sameSite: "none",
   };
 
   // send response
@@ -259,6 +263,7 @@ const logoutUser = asyncHandler(async (req, res) => {
   const options = {
     httpOnly: true,
     secure: true,
+    sameSite: "none",
   };
 
   // clear the cookies send response
@@ -381,7 +386,7 @@ const getUserStats = asyncHandler(async (req, res) => {
         total: { $sum: 1 },
       },
     },
-  ]).sort({_id: 1})
+  ]).sort({ _id: 1 });
 
   return res
     .status(200)
