@@ -5,7 +5,7 @@ import ApiResponse from "../utils/ApiResponse.js";
 import { User } from "../models/user.models.js";
 import { Order } from "../models/order.models.js";
 
-const YOUR_DOMAIN = "http://localhost:3000";
+const frontendDomain = process.env.FRONTEND_DOMAIN;
 
 const createCheckoutSession = asyncHandler(async (req, res) => {
   const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
@@ -59,8 +59,8 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
       shipping_address_collection: {
         allowed_countries: ["IN"],
       },
-      success_url: `${YOUR_DOMAIN}/return?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${YOUR_DOMAIN}/cart`,
+      success_url: `${frontendDomain}/return?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${frontendDomain}/cart`,
       customer: customer,
       metadata: { userId: userId.toString() },
     });
