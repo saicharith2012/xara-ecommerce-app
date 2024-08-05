@@ -9,7 +9,7 @@ const app = express();
 //  allowing the requests with credentials and authorization headers
 // Define allowed origins
 const allowedOrigins = [
-  process.env.CORS_ORIGIN_VERCEL,
+  process.env.CORS_ORIGIN_CLIENT,
   process.env.CORS_ORIGIN_ADMIN,
   'http://localhost:3000'  // local development
 ];
