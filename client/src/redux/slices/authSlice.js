@@ -11,6 +11,10 @@ export const loginUser = createAsyncThunk(
         { withCredentials: true }
       );
 
+      userRequest.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${response.data.data.accessToken}`;
+
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -29,6 +33,8 @@ export const logoutUser = createAsyncThunk(
           withCredentials: true,
         }
       );
+
+      delete userRequest.defaults.headers.common["Authorization"];
 
       return response.data.data;
     } catch (error) {
