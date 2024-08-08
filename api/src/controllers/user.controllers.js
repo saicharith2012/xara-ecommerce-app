@@ -139,6 +139,7 @@ const loginUser = asyncHandler(async (req, res) => {
     httpOnly: true,
     secure: true, // options for cookies to ensure only server can modify them.
     sameSite: "none",
+    maxAge: 10 * 24 * 60 * 60 * 1000,
   };
 
   // send response
