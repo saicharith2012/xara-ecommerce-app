@@ -147,11 +147,11 @@ const Login = () => {
             required
           />
           <Button>LOGIN</Button>
-          <Link>
+          <Link style={{ textDecoration: "none", color: "inherit" }}>
             <LinkDiv>DON'T REMEMBER YOUR PASSWORD?</LinkDiv>
           </Link>
 
-          <Link to="/register">
+          <Link to="/register" style={{ textDecoration: "none", color: "inherit" }}>
             {" "}
             <LinkDiv>CREATE A NEW ACCOUNT </LinkDiv>
           </Link>
